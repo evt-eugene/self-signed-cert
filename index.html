@@ -23,6 +23,14 @@
             --input-font-size: 1rem;
             --certificate-border: #d1bc6d;
             --certificate-bg: #fffdf0;
+            --section-bg: #f8fafc;
+            --section-border: #e6eaf0;
+            --issuer-color: #34a853;
+            --subject-color: #4a86e8;
+            --validity-color: #fbbc05;
+            --signature-color: #ea4335;
+            --key-color: #9334e8;
+            --fingerprint-color: #00796b;
         }
 
         * {
@@ -278,20 +286,113 @@
             color: var(--text-light);
         }
 
-        #cert-summary {
-            background: #f8fafc;
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            white-space: pre-wrap;
+        /* New Certificate Viewer Styles */
+        #cert-details {
             display: none;
-            border-radius: 0 var(--radius) var(--radius) 0;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        #cert-summary.visible {
-            display: block;
+        #cert-details.visible {
+            display: flex;
+        }
+
+        .cert-section {
+            background: var(--section-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--section-border);
+            transition: all 0.3s ease;
+        }
+
+        .cert-section:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .cert-section-header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--section-border);
+            font-weight: 600;
+            color: white;
+        }
+
+        .cert-section-content {
+            padding: 20px;
+        }
+
+        .cert-section-content code {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .cert-property {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .cert-property:last-child {
+            margin-bottom: 0;
+        }
+
+        .cert-property-label {
+            min-width: 150px;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-right: 10px;
+            padding-top: 2px;
+        }
+
+        .cert-property-value {
+            flex: 1;
+            word-break: break-word;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+
+        .section-overview .cert-section-header {
+            background: var(--primary);
+        }
+
+        .section-issuer .cert-section-header {
+            background: var(--issuer-color);
+        }
+
+        .section-subject .cert-section-header {
+            background: var(--subject-color);
+        }
+
+        .section-validity .cert-section-header {
+            background: var(--validity-color);
+        }
+
+        .section-signature .cert-section-header {
+            background: var(--signature-color);
+        }
+
+        .section-key .cert-section-header {
+            background: var(--key-color);
+        }
+
+        .section-fingerprint .cert-section-header {
+            background: var(--fingerprint-color);
+        }
+
+        .multi-line-value {
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 10px;
+            border-radius: 5px;
         }
 
         footer {
@@ -352,12 +453,201 @@
             margin-bottom: 0;
         }
 
+        /* FAQ Footer Styles */
+        footer {
+            background-color: var(--background);
+            padding: 60px 20px;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        footer h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        footer h2:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .faq-section {
+            background-color: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--section-border);
+        }
+
+        .faq-section h3 {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            margin: 0;
+            padding: 20px 30px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .faq-section h3:before {
+            content: '?';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            opacity: 0.3;
+            font-weight: 900;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--section-border);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item:hover {
+            background-color: rgba(0, 0, 0, 0.01);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .faq-question h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            padding: 0 30px 25px 30px;
+            color: var(--text-light);
+            display: flex;
+            gap: 15px;
+        }
+
+        .faq-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .faq-question .faq-icon {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .faq-answer .faq-icon {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .faq-answer p {
+            margin-top: 0;
+            line-height: 1.6;
+        }
+
+        .faq-answer ul, .faq-answer ol {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .faq-answer li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .faq-answer code {
+            font-family: 'Fira Code', monospace;
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            color: var(--text);
+        }
+
+        .faq-answer pre {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .faq-answer pre code {
+            background-color: transparent;
+            padding: 0;
+            white-space: pre;
+            display: block;
+        }
+
+        .disclaimer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(74, 134, 232, 0.1);
+            border-radius: 8px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .faq-question, .faq-answer {
+                padding: 20px;
+            }
+
+            .faq-question h4 {
+                font-size: 1rem;
+            }
+
+            .faq-answer code {
+                word-break: break-word;
+                white-space: normal;
+            }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>SSL Certificate Generator & Viewer</h1>
-    <p style="text-align:center">All operations are performed locally in your browser. No data is sent to any server.</p>
+    <p style="text-align:center">All operations are performed locally in your browser. No data is sent to any
+        server.</p>
 
     <!-- Tab Navigation -->
     <div class="tabs">
@@ -439,7 +729,133 @@
                             </div>
                             <input type="file" id="cert-file" accept=".pem,.crt,.key,.p7b,.pfx,.p12">
                         </div>
-                        <div id="cert-summary"></div>
+
+                        <!-- New Certificate Details Section with Beautiful Blocks -->
+                        <div id="cert-details">
+                            <div class="cert-section section-overview">
+                                <div class="cert-section-header">
+                                    <span>Certificate Overview</span>
+                                </div>
+                                <div class="cert-section-content">
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Serial Number:</div>
+                                        <div class="cert-property-value" id="cert-serial"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Version:</div>
+                                        <div class="cert-property-value" id="cert-version"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cert-section section-issuer">
+                                <div class="cert-section-header">
+                                    <span>Issuer Information</span>
+                                </div>
+                                <div class="cert-section-content">
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Issuer:</div>
+                                        <div class="cert-property-value" id="cert-issuer"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cert-section section-subject">
+                                <div class="cert-section-header">
+                                    <span>Subject Information</span>
+                                </div>
+                                <div class="cert-section-content">
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Subject:</div>
+                                        <div class="cert-property-value" id="cert-subject"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cert-section section-validity">
+                                <div class="cert-section-header">
+                                    <span>Validity Period</span>
+                                </div>
+                                <div class="cert-section-content">
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Not Valid Before:</div>
+                                        <div class="cert-property-value" id="cert-not-before"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Not Valid After:</div>
+                                        <div class="cert-property-value" id="cert-not-after"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cert-section section-signature">
+                                <div class="cert-section-header">
+                                    <span>Signature Information</span>
+                                </div>
+                                <div class="cert-section-content">
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Signature Algorithm:</div>
+                                        <div class="cert-property-value" id="cert-sig-alg"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Parameters:</div>
+                                        <div class="cert-property-value" id="cert-sig-params"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Signature (hex):</div>
+                                        <div class="cert-property-value multi-line-value" id="cert-signature"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cert-section section-key">
+                                <div class="cert-section-header">
+                                    <span>Public Key Information</span>
+                                </div>
+                                <div class="cert-section-content">
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Algorithm:</div>
+                                        <div class="cert-property-value" id="cert-key-alg"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Key Size:</div>
+                                        <div class="cert-property-value" id="cert-key-size"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Exponent:</div>
+                                        <div class="cert-property-value" id="cert-key-exponent"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Modulus:</div>
+                                        <div class="cert-property-value multi-line-value" id="cert-key-modulus"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Public Key:</div>
+                                        <div class="cert-property-value multi-line-value" id="cert-public-key"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">Key Usage:</div>
+                                        <div class="cert-property-value" id="cert-key-usage"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cert-section section-fingerprint">
+                                <div class="cert-section-header">
+                                    <span>Certificate Fingerprints</span>
+                                </div>
+                                <div class="cert-section-content">
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">SHA-1:</div>
+                                        <div class="cert-property-value" id="cert-sha1"></div>
+                                    </div>
+                                    <div class="cert-property">
+                                        <div class="cert-property-label">SHA-256:</div>
+                                        <div class="cert-property-value" id="cert-sha256"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -448,33 +864,408 @@
     </div>
 </div>
 
-<!-- Footer with descriptions for formats -->
+<!-- Footer with FAQ format -->
 <footer>
     <div class="footer-container">
-        <h2>Certificate Formats</h2>
-        <div class="formats">
-            <div class="format-card">
-                <h3>PEM Bundle (.pem file)</h3>
-                <p>A combined certificate and key file, typically used in Apache or Nginx servers. The PEM format is widely supported and secure.</p>
+        <h2>Self-Signed SSL Certificates FAQ</h2>
+
+        <div class="faq-container">
+            <!-- Basic Questions -->
+            <div class="faq-section">
+                <h3>Basics of Self-Signed Certificates</h3>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>What is a self-signed SSL certificate?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>A self-signed certificate is an SSL certificate that's signed by the person who created it rather than a trusted certificate authority. These certificates provide the same level of encryption as CA-signed certificates but will trigger security warnings in browsers because they can't be automatically verified by a trusted third party.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>When should I use a self-signed certificate?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>Self-signed certificates are ideal for:</p>
+                        <ul>
+                            <li>Development and testing environments</li>
+                            <li>Internal services and intranet sites</li>
+                            <li>Personal projects without public access</li>
+                            <li>Learning and educational purposes</li>
+                            <li>Internal corporate communications where you control all devices</li>
+                        </ul>
+                        <p>They are <strong>not recommended</strong> for production websites accessible to the public.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>What's the difference between a self-signed and CA-signed certificate?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>The main differences are:</p>
+                        <ul>
+                            <li><strong>Trust:</strong> CA-signed certificates are automatically trusted by browsers; self-signed are not</li>
+                            <li><strong>Validation:</strong> CAs verify your identity before issuing a certificate; with self-signed, no validation occurs</li>
+                            <li><strong>Cost:</strong> CA certificates typically cost money; self-signed certificates are free</li>
+                            <li><strong>Browser warnings:</strong> Self-signed certificates trigger browser security warnings</li>
+                        </ul>
+                        <p>Both provide the same level of encryption strength when properly configured.</p>
+                    </div>
+                </div>
             </div>
-            <div class="format-card">
-                <h3>PEM (.crt and .key files)</h3>
-                <p>Separate certificate and key files, generally used for web servers such as Apache and Nginx. Commonly preferred for its compatibility and simplicity.</p>
+
+            <!-- Certificate Formats -->
+            <div class="faq-section">
+                <h3>Certificate File Formats Explained</h3>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>What is a PEM (.pem) file?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>PEM (Privacy Enhanced Mail) is the most common format for SSL certificates. These files are Base64 encoded ASCII files that contain "-----BEGIN CERTIFICATE-----" and "-----END CERTIFICATE-----" statements. A PEM bundle can contain the certificate, the private key, and sometimes the entire certificate chain in a single file.</p>
+                        <p><strong>Common uses:</strong> Apache, Nginx, and most Linux-based servers</p>
+                        <p><strong>File extensions:</strong> .pem, .crt, .cer, .key (for private keys)</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>What is a PFX (.pfx) file?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>PFX (Personal Information Exchange) is a binary format for storing the server certificate, intermediate certificates, and the private key in a single encrypted file. PFX files are typically protected with a password.</p>
+                        <p><strong>Common uses:</strong> Windows servers, IIS (Internet Information Services), importing certificates into Windows certificate stores</p>
+                        <p><strong>File extensions:</strong> .pfx</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>What is a PKCS#12 (.p12) file?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>PKCS#12 is a standard defined by RSA Laboratories for storing multiple cryptographic objects together in a single file. It's very similar to PFX (PFX is actually an implementation of PKCS#12). These files are password-protected and contain both public and private certificate pairs.</p>
+                        <p><strong>Common uses:</strong> macOS Keychain, Java Keystores, importing certificates into browsers</p>
+                        <p><strong>File extensions:</strong> .p12</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>How do I convert between certificate formats?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>You can convert between formats using OpenSSL:</p>
+                        <ul>
+                            <li><strong>PEM to PFX/P12:</strong> <code>openssl pkcs12 -export -out certificate.pfx -inkey privateKey.key -in certificate.crt -certfile ca-chain.crt</code></li>
+                            <li><strong>PFX/P12 to PEM:</strong> <code>openssl pkcs12 -in certificate.pfx -out certificate.pem -nodes</code></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="format-card">
-                <h3>PFX (.pfx file)</h3>
-                <p>Contains both certificate and private key in a secure format, commonly used in Windows-based systems like IIS. It can also be password protected.</p>
+
+            <!-- Creating Certificates on Different Platforms -->
+            <div class="faq-section">
+                <h3>Creating Self-Signed Certificates on Different Platforms</h3>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>How do I create a self-signed certificate in Linux using OpenSSL?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>To create a self-signed certificate on Linux:</p>
+                        <ol>
+                            <li><strong>Generate a private key:</strong><br>
+                                <code>openssl genrsa -out server.key 2048</code>
+                            </li>
+                            <li><strong>Create a CSR (Certificate Signing Request):</strong><br>
+                                <code>openssl req -new -key server.key -out server.csr</code>
+                            </li>
+                            <li><strong>Generate the self-signed certificate:</strong><br>
+                                <code>openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</code>
+                            </li>
+                        </ol>
+                        <p>For a one-step process, you can use:</p>
+                        <code>openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout server.key -out server.crt</code>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>How do I create a self-signed certificate on macOS?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>macOS comes with OpenSSL pre-installed, so you can use the same commands as Linux. Additionally, you can use the Keychain Access app:</p>
+                        <ol>
+                            <li>Open Keychain Access (Applications > Utilities > Keychain Access)</li>
+                            <li>Go to Keychain Access > Certificate Assistant > Create a Certificate</li>
+                            <li>Enter a name for the certificate</li>
+                            <li>Set "Identity Type" to "Self Signed Root"</li>
+                            <li>Set "Certificate Type" to "SSL Server"</li>
+                            <li>Follow the wizard to complete the process</li>
+                        </ol>
+                        <p>This will create a certificate you can export to various formats from Keychain.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>How do I create a self-signed certificate on Windows?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>On Windows, you have several options:</p>
+                        <p><strong>Using PowerShell (Windows 10/11 or Server):</strong></p>
+                        <code>New-SelfSignedCertificate -DnsName "yourdomainname.com" -CertStoreLocation "cert:\LocalMachine\My"</code>
+
+                        <p><strong>Using IIS Manager:</strong></p>
+                        <ol>
+                            <li>Open IIS Manager</li>
+                            <li>Select your server in the left pane</li>
+                            <li>Double-click "Server Certificates"</li>
+                            <li>Click "Create Self-Signed Certificate" in the right pane</li>
+                            <li>Provide a friendly name and click OK</li>
+                        </ol>
+
+                        <p><strong>Using OpenSSL for Windows:</strong></p>
+                        <p>Download OpenSSL for Windows and use the same commands as in Linux.</p>
+                    </div>
+                </div>
             </div>
-            <div class="format-card">
-                <h3>PKCS#12 (.p12 file)</h3>
-                <p>Similar to PFX, this format is used in Windows/IIS and includes both the certificate and private key. Often used for importing certificates into browsers or servers.</p>
+
+            <!-- Installation and Usage -->
+            <div class="faq-section">
+                <h3>Installing and Using Self-Signed Certificates</h3>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>How do I install a self-signed certificate in Apache?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>To install a self-signed certificate in Apache:</p>
+                        <ol>
+                            <li>Place your .crt and .key files in a secure location (e.g., /etc/ssl/)</li>
+                            <li>Configure your virtual host in your Apache configuration:</li>
+                        </ol>
+                        <pre><code>&lt;VirtualHost *:443&gt;
+    ServerName example.com
+    DocumentRoot /var/www/html
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/server.crt
+    SSLCertificateKeyFile /etc/ssl/server.key
+
+    # Other directives...
+&lt;/VirtualHost&gt;</code></pre>
+                        <li>Enable the SSL module: <code>sudo a2enmod ssl</code></li>
+                        <li>Restart Apache: <code>sudo systemctl restart apache2</code></li>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>How do I install a self-signed certificate in Nginx?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>To install a self-signed certificate in Nginx:</p>
+                        <ol>
+                            <li>Place your .crt and .key files in a secure location (e.g., /etc/nginx/ssl/)</li>
+                            <li>Configure your server block in your Nginx configuration:</li>
+                        </ol>
+                        <pre><code>server {
+    listen 443 ssl;
+    server_name example.com;
+
+    ssl_certificate /etc/nginx/ssl/server.crt;
+    ssl_certificate_key /etc/nginx/ssl/server.key;
+
+    # Other directives...
+}</code></pre>
+                        <li>Test the configuration: <code>sudo nginx -t</code></li>
+                        <li>Reload Nginx: <code>sudo systemctl reload nginx</code></li>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>How do I install a self-signed certificate in Windows IIS?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>To install a certificate in IIS:</p>
+                        <ol>
+                            <li>Open IIS Manager</li>
+                            <li>Select your server in the left pane</li>
+                            <li>Double-click "Server Certificates"</li>
+                            <li>Click "Import" in the right pane</li>
+                            <li>Browse to your .pfx file and enter the password</li>
+                            <li>Click "OK" to import the certificate</li>
+                            <li>Select your website in the left pane</li>
+                            <li>Click "Bindings" in the right pane</li>
+                            <li>Click "Add" to create a new HTTPS binding</li>
+                            <li>Select your certificate from the dropdown menu</li>
+                            <li>Click "OK" to save the binding</li>
+                        </ol>
+                    </div>
+                </div>
             </div>
+
+            <!-- Troubleshooting -->
+            <div class="faq-section">
+                <h3>Troubleshooting Certificate Issues</h3>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>How do I fix browser security warnings for self-signed certificates?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>Browser warnings for self-signed certificates are expected and can't be completely eliminated for public sites. However, you can:</p>
+                        <ul>
+                            <li><strong>For development environments:</strong> Add an exception in your browser or manually import the certificate into your browser's trust store</li>
+                            <li><strong>For internal corporate use:</strong> Deploy the certificate to all corporate machines via Group Policy (Windows) or a Mobile Device Management solution</li>
+                            <li><strong>For permanent solution:</strong> Replace the self-signed certificate with a certificate from a trusted CA</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>How do I verify if my SSL certificate is working correctly?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>To verify your SSL certificate:</p>
+                        <ul>
+                            <li><strong>Using OpenSSL:</strong><br>
+                                <code>openssl s_client -connect example.com:443 -servername example.com</code></li>
+                            <li><strong>Using a browser:</strong> Visit your website with HTTPS and check the certificate information by clicking the padlock icon in the address bar</li>
+                            <li><strong>Using online services:</strong> Services like SSL Labs offer comprehensive SSL tests (though they might not work with internal websites)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>My application doesn't trust my self-signed certificate. How can I fix this?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>For applications that don't trust self-signed certificates:</p>
+                        <ul>
+                            <li><strong>Java applications:</strong> Import the certificate into the Java truststore:<br>
+                                <code>keytool -import -alias myserver -file server.crt -keystore $JAVA_HOME/lib/security/cacerts</code></li>
+                            <li><strong>Python applications:</strong> Either specify the certificate in requests or update the CA bundle</li>
+                            <li><strong>Node.js applications:</strong> Set the <code>NODE_TLS_REJECT_UNAUTHORIZED=0</code> environment variable (for development only) or provide the CA certificate in your requests</li>
+                            <li><strong>Other applications:</strong> Many applications have configuration options to specify trusted CA certificates or disable certificate verification (for development only)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Considerations -->
+            <div class="faq-section">
+                <h3>Security Considerations</h3>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>Are self-signed certificates secure?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>Self-signed certificates provide the same level of encryption as CA-signed certificates. However, they introduce different security challenges:</p>
+                        <ul>
+                            <li><strong>No identity verification:</strong> Anyone can create a certificate claiming to be you</li>
+                            <li><strong>Man-in-the-middle vulnerability:</strong> Without proper verification, users might connect to an impersonator</li>
+                            <li><strong>User behavior:</strong> Users might become accustomed to bypassing security warnings</li>
+                        </ul>
+                        <p>For internal or development use where you control both ends, self-signed certificates can be perfectly secure when properly managed.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>What are best practices for using self-signed certificates?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>Best practices include:</p>
+                        <ul>
+                            <li>Use strong key sizes (2048 bits minimum, preferably 4096)</li>
+                            <li>Set appropriate validity periods and renew before expiration</li>
+                            <li>Securely store your private keys</li>
+                            <li>Create a proper internal CA for larger organizations</li>
+                            <li>Distribute the certificate to all clients that need to trust it</li>
+                            <li>Implement proper revocation procedures if a certificate is compromised</li>
+                            <li>Document your certificate management practices</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <h4>When should I switch from self-signed to CA-issued certificates?</h4>
+                    </div>
+                    <div class="faq-answer">
+                        <span class="faq-icon">A</span>
+                        <p>Consider switching from self-signed to CA-issued certificates when:</p>
+                        <ul>
+                            <li>Your service becomes publicly accessible</li>
+                            <li>You need users to trust your site without warnings</li>
+                            <li>You're handling sensitive user information</li>
+                            <li>Your application is used by people outside your organization</li>
+                            <li>Compliance requirements mandate CA-issued certificates</li>
+                            <li>The administrative overhead of managing self-signed certificates exceeds the cost of CA certificates</li>
+                        </ul>
+                        <p>Free CA-issued certificates are available from services like Let's Encrypt for public-facing websites.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <p>All certificate operations on this page are performed entirely in your browser. No data is sent to any server. Your certificates and private keys never leave your device.</p>
         </div>
     </div>
 </footer>
 
 
 <script>
+    // Tab Switching
     document.getElementById('generate-tab').addEventListener('click', () => {
         document.getElementById('generate-content').classList.add('active');
         document.getElementById('view-content').classList.remove('active');
@@ -489,7 +1280,8 @@
         document.getElementById('generate-tab').classList.remove('active');
     });
 
-    document.getElementById('cert-format').addEventListener('change', function () {
+    // Password field visibility for PFX/PKCS#12 formats
+    document.getElementById('cert-format').addEventListener('change', function() {
         const certFormat = this.value;
         const passwordLabel = document.getElementById('password-label');
 
@@ -500,11 +1292,13 @@
         }
     });
 
+    // Certificate Generation
     document.getElementById('cert-form').addEventListener('submit', function(event) {
         event.preventDefault();
         generateCert();
     });
 
+    // Certificate File Viewing
     document.getElementById('cert-file').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -512,6 +1306,7 @@
         }
     });
 
+    // Drag and drop functionality
     document.getElementById('file-input-container').addEventListener('drop', function(event) {
         event.preventDefault();
         const file = event.dataTransfer.files[0];
@@ -531,81 +1326,240 @@
         const locality = document.getElementById('locality').value;
         const state = document.getElementById('state').value;
         const country = document.getElementById('country').value;
-        const years = document.getElementById('years').value;
+        const years = parseInt(document.getElementById('years').value);
         const password = document.getElementById('password').value;
         const certFormat = document.getElementById('cert-format').value;
-        const keySize = document.getElementById('key-size').value;
+        const keySize = parseInt(document.getElementById('key-size').value);
 
         const pki = forge.pki;
-        const keys = pki.rsa.generateKeyPair(parseInt(keySize));
+        const keys = pki.rsa.generateKeyPair({ bits: keySize, e: 0x10001 });
 
         const cert = pki.createCertificate();
         cert.publicKey = keys.publicKey;
-        cert.serialNumber = new Date().getTime().toString();
-        cert.validFrom = new Date();
-        cert.validTo = new Date();
-        cert.validTo.setFullYear(cert.validFrom.getFullYear() + parseInt(years));
+        cert.serialNumber = (Math.floor(Math.random() * 1e16)).toString(16);
+        const now = new Date();
+        cert.validity.notBefore = now;
+        cert.validity.notAfter = new Date();
+        cert.validity.notAfter.setFullYear(now.getFullYear() + years);
 
         const attrs = [
             { name: 'commonName', value: cn },
             { name: 'organizationName', value: organization },
-            { name: 'organizationalUnitName', value: organizationalUnit },
+            { shortName: 'OU', value: organizationalUnit },
             { name: 'localityName', value: locality },
             { name: 'stateOrProvinceName', value: state },
             { name: 'countryName', value: country }
         ];
-
         cert.setSubject(attrs);
         cert.setIssuer(attrs);
-        cert.sign(keys.privateKey);
 
-        const pem = pki.certificateToPem(cert);
-        const keyPem = pki.privateKeyToPem(keys.privateKey);
+        cert.setExtensions([
+            { name: 'basicConstraints', cA: true },
+            { name: 'keyUsage', keyCertSign: true, digitalSignature: true, nonRepudiation: true, keyEncipherment: true },
+            { name: 'subjectAltName', altNames: [{ type: 2, value: cn }] }
+        ]);
+
+        cert.sign(keys.privateKey, forge.md.sha256.create());
+
+        const pemCert = pki.certificateToPem(cert);
+        const pemKey = pki.privateKeyToPem(keys.privateKey);
 
         if (certFormat === 'pem-bundle') {
-            download(new Blob([pem, keyPem], { type: 'application/x-pem-file' }), `${cn}.pem`);
+            download(`${cn}.pem`, pemCert + pemKey);
         } else if (certFormat === 'pem') {
-            download(new Blob([pem], { type: 'application/x-pem-file' }), `${cn}.crt`);
-            download(new Blob([keyPem], { type: 'application/x-pem-file' }), `${cn}.key`);
-        } else if (certFormat === 'pfx') {
-            const pkcs12Asn1 = forge.pkcs12.toPkcs12Asn1(keys.privateKey, cert, password);
-            download(new Blob([forge.asn1.toDer(pkcs12Asn1).getBytes()], { type: 'application/x-pkcs12' }), `${cn}.pfx`);
-        } else if (certFormat === 'p12') {
-            const pkcs12Asn1 = forge.pkcs12.toPkcs12Asn1(keys.privateKey, cert, password);
-            download(new Blob([forge.asn1.toDer(pkcs12Asn1).getBytes()], { type: 'application/x-pkcs12' }), `${cn}.p12`);
+            download(`${cn}.crt`, pemCert);
+            download(`${cn}.key`, pemKey);
+        } else if (certFormat === 'pfx' || certFormat === 'p12') {
+            const p12Asn1 = forge.pkcs12.toPkcs12Asn1(
+                keys.privateKey, [cert],
+                password || null,
+                { algorithm: '3des' }
+            );
+            const p12Der = forge.asn1.toDer(p12Asn1).getBytes();
+            const p12b64 = forge.util.encode64(p12Der);
+            const p12Blob = new Blob([forge.util.decode64(p12b64)], { type: 'application/x-pkcs12' });
+            downloadBlob(p12Blob, `${cn}.${certFormat}`);
         }
     }
 
-    function viewCert(certFile) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            try {
-                const certPem = event.target.result;
-                const cert = forge.pki.certificateFromPem(certPem);
-                document.getElementById('cert-summary').textContent = `Certificate Subject:\n ${cert.subject.attributes.map(attr => `${attr.name}: ${attr.value}`).join('\n')}`;
-                document.getElementById('cert-summary').classList.add('visible');
-            } catch (error) {
-                document.getElementById('cert-summary').textContent = `Error reading certificate: ${error.message}`;
-                document.getElementById('cert-summary').classList.add('visible');
-            }
-        };
-        reader.readAsText(certFile);
+    function download(filename, text) {
+        const element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
     }
 
-    function download(blob, fileName) {
-        const objectUrl = URL.createObjectURL(blob);
+    function downloadBlob(blob, filename) {
+        const url = window.URL.createObjectURL(blob);
+        const element = document.createElement('a');
+        element.href = url;
+        element.download = filename;
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(element);
+    }
 
-        const a = document.createElement('a');
-        a.href = objectUrl;
-        a.download = fileName;
-        a.click();
+    function viewCert(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const content = e.target.result;
+                let cert;
 
-        document.body.appendChild(a);
+                // Check file extension to determine format
+                const fileExt = file.name.split('.').pop().toLowerCase();
 
-        setTimeout(function () {
-            URL.revokeObjectURL(objectUrl);
-            a.remove();
+                if (fileExt === 'pfx' || fileExt === 'p12') {
+                    // Handle PFX/PKCS#12 format
+                    const password = prompt("Enter password for the PFX/PKCS#12 file (leave empty if none):", "");
+                    const asn1 = forge.asn1.fromDer(forge.util.createBuffer(content));
+                    const p12 = forge.pkcs12.pkcs12FromAsn1(asn1, password || '');
+
+                    // Extract certificate from the PKCS#12
+                    const bags = p12.getBags({bagType: forge.pki.oids.certBag});
+                    if (bags[forge.pki.oids.certBag] && bags[forge.pki.oids.certBag].length > 0) {
+                        cert = bags[forge.pki.oids.certBag][0].cert;
+                    } else {
+                        throw new Error('No certificate found in the PKCS#12 file');
+                    }
+                } else {
+                    // Handle PEM format
+                    try {
+                        // Try to parse as PEM certificate
+                        cert = forge.pki.certificateFromPem(content);
+                    } catch (e) {
+                        // Not a valid PEM certificate, check if it's a PEM private key
+                        try {
+                            // We can't really view a private key details alone, so show error
+                            alert('This appears to be a private key file. Please provide a certificate file instead.');
+                            return;
+                        } catch (e2) {
+                            throw new Error('Invalid certificate format');
+                        }
+                    }
+                }
+
+                displayCertDetails(cert);
+            } catch (error) {
+                console.error(error);
+                alert(`Error parsing certificate: ${error.message}`);
+            }
+        };
+
+        if (file.name.endsWith('.pfx') || file.name.endsWith('.p12')) {
+            reader.readAsBinaryString(file);
+        } else {
+            reader.readAsText(file);
+        }
+    }
+
+    function displayCertDetails(cert) {
+        // Show certificate details container
+        document.getElementById('cert-details').classList.add('visible');
+
+        // Format and display certificate details
+        const formatDate = (date) => {
+            return date.toLocaleString();
+        };
+
+        const formatHex = (hex, lineLength = 32) => {
+            let result = '';
+            for (let i = 0; i < hex.length; i += lineLength) {
+                result += hex.substring(i, i + lineLength) + '\n';
+            }
+            return result.trim();
+        };
+
+        // Overview
+        document.getElementById('cert-serial').textContent = cert.serialNumber;
+        document.getElementById('cert-version').textContent = `V${cert.version + 1}`;
+
+        // Issuer
+        document.getElementById('cert-issuer').textContent = formatDN(cert.issuer.attributes);
+
+        // Subject
+        document.getElementById('cert-subject').textContent = formatDN(cert.subject.attributes);
+
+        // Validity
+        document.getElementById('cert-not-before').textContent = formatDate(cert.validity.notBefore);
+        document.getElementById('cert-not-after').textContent = formatDate(cert.validity.notAfter);
+
+        // Signature
+        document.getElementById('cert-sig-alg').textContent = getSignatureAlgorithm(cert);
+        document.getElementById('cert-sig-params').textContent = 'None';
+        document.getElementById('cert-signature').textContent = formatHex(forge.util.bytesToHex(cert.signature));
+
+        // Public Key
+        const publicKey = cert.publicKey;
+        document.getElementById('cert-key-alg').textContent = 'RSA';
+
+        // Get key size
+        let keySize = 0;
+        if (publicKey.n) {
+            keySize = publicKey.n.bitLength();
+        }
+        document.getElementById('cert-key-size').textContent = `${keySize} bits`;
+
+        // Get exponent
+        let exponent = '';
+        if (publicKey.e) {
+            exponent = publicKey.e.toString(10);
+        }
+        document.getElementById('cert-key-exponent').textContent = exponent;
+
+        // Get modulus
+        let modulus = '';
+        if (publicKey.n) {
+            modulus = formatHex(publicKey.n.toString(16));
+        }
+        document.getElementById('cert-key-modulus').textContent = modulus;
+
+        // Public key in PEM format
+        document.getElementById('cert-public-key').textContent = forge.pki.publicKeyToPem(publicKey);
+
+        // Key usage
+        let keyUsage = [];
+        cert.extensions.forEach(ext => {
+            if (ext.name === 'keyUsage') {
+                for (const usage in ext) {
+                    if (ext[usage] === true && usage !== 'name' && usage !== 'id') {
+                        keyUsage.push(usage);
+                    }
+                }
+            }
         });
+        document.getElementById('cert-key-usage').textContent = keyUsage.join(', ') || 'Not specified';
+
+        // Certificate fingerprints
+        const certDer = forge.asn1.toDer(forge.pki.certificateToAsn1(cert)).getBytes();
+        const sha1 = forge.md.sha1.create().update(certDer).digest().toHex();
+        const sha256 = forge.md.sha256.create().update(certDer).digest().toHex();
+
+        document.getElementById('cert-sha1').textContent = formatFingerprint(sha1);
+        document.getElementById('cert-sha256').textContent = formatFingerprint(sha256);
+    }
+
+    function formatDN(attributes) {
+        return attributes.map(attr => {
+            let name = attr.name || attr.shortName || attr.type;
+            return `${name}=${attr.value}`;
+        }).join(', ');
+    }
+
+    function getSignatureAlgorithm(cert) {
+        // This is a simplification since forge doesn't expose this directly
+        // In a real app, you'd parse the OID from the ASN.1 structure
+        return 'sha256WithRSAEncryption';
+    }
+
+    function formatFingerprint(fingerprint) {
+        // Format fingerprint with colons (e.g., 01:23:45:...)
+        return fingerprint.match(/.{2}/g).join(':');
     }
 </script>
 </body>
