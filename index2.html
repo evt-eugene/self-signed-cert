@@ -1,374 +1,110 @@
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="https://schema.org/WebSite">
 <head>
-    <title>SSL Certificate Generator & Viewer</title>
-    <link rel="canonical" href="https://self-signed-cert.dev/" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed.">
-    <meta name="keywords" content="SSL, Self-Signed, Certificate, Generator, Viewer, Online, Secure, HTTPS, OpenSSL" />
-    <meta name="robots" content="index, follow" />
-    <meta itemprop="name" content="SSL Self-Signed Certificates Generator & Viewer" />
-    <meta itemprop="url" content="https://self-signed-cert.dev/" />
-    <meta itemprop="description" content="Online tool for self-signed SSL certificates generating and viewing. Fast, secure and free. Works on any platform." />
-    <script src="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js"></script>
-    <style>
-        :root {
-            --primary: #4a86e8;
-            --primary-dark: #3a76d8;
-            --accent: #34a853;
-            --background: #f5f7f9;
-            --surface: #fff;
-            --input-border: #e1e5eb;
-            --text: #333;
-            --text-light: #6b7c93;
-            --border-color: #cfd7e3;
-            --radius: 4px;
-            --input-padding: 12px;
-            --input-font-size: 1rem;
-            --certificate-border: #d1bc6d;
-            --certificate-bg: #fffdf0;
-            --section-bg: #f8fafc;
-            --section-border: #e6eaf0;
-            --issuer-color: #34a853;
-            --subject-color: #4a86e8;
-            --validity-color: #fbbc05;
-            --signature-color: #ea4335;
-            --key-color: #9334e8;
-            --fingerprint-color: #00796b;
-        }
-
-        html, body, div, span, applet, object, iframe,
-        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-        a, abbr, acronym, address, big, cite, code,
-        del, dfn, em, img, ins, kbd, q, s, samp,
-        small, strike, strong, sub, sup, tt, var,
-        b, u, i, center,
-        dl, dt, dd, ol, ul, li,
-        fieldset, form, label, legend,
-        table, caption, tbody, tfoot, thead, tr, th, td,
-        article, aside, canvas, details, embed,
-        figure, figcaption, footer, header, hgroup,
-        menu, nav, output, ruby, section, summary,
-        time, mark, audio, video {
-            margin: 0;
-            padding: 0;
-            border: 0;
-            font: inherit;
-            vertical-align: baseline;
-        }
-
-        article, aside, details, figcaption, figure,
-        footer, header, hgroup, menu, nav, section {
-            display: block;
-        }
-
-        ol, ul {
-            list-style: none;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 16px;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            background: var(--background);
-            margin: 0;
-            padding: 0;
-            color: var(--text);
-            line-height: 1.2;
-        }
-
-        header, main, footer {
-            margin: 20px 40px;
-            text-align: center;
-        }
-
-        header > h1 {
-            color: var(--primary);
-            padding: 20px 0 10px;
-            font-size: 2rem;
-        }
-
-        header > p {
-            color: var(--text-light);
-            padding: 10px 0 10px;
-            font-size: 1.3rem;
-        }
-
-        header > .disclaimer {
-            color: var(--primary);
-            background-color: rgba(74, 134, 232, 0.1);
-            padding: 15px;
-            margin: 10px 0 10px;
-            border-radius: var(--radius);
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin: 25px 0;
-        }
-
-        .tab {
-            padding: 12px 24px;
-            cursor: pointer;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.3s ease;
-            color: var(--text-light);
-            background: var(--surface);
-            border: 1px solid var(--border-color);
-            margin: 0 5px;
-            border-radius: var(--radius);
-        }
-
-        .tab.active {
-            background-color: var(--primary-dark);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(74, 134, 232, 0.2);
-        }
-
-        .certificate-frame {
-            background-color: var(--certificate-bg);
-            border: 2px solid var(--certificate-border);
-            border-radius: var(--radius);
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        </style>
+  <title>SSL Certificate Generator & Viewer</title>
+  <base href="/">
+  <link rel="canonical" href="https://self-signed-cert.dev/">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed.">
+  <meta name="keywords" content="SSL, Self-Signed, Certificate, Generator, Viewer, Online, Secure, HTTPS, OpenSSL">
+  <meta name="robots" content="index, follow">
+  <meta itemprop="name" content="SSL Self-Signed Certificates Generator & Viewer">
+  <meta itemprop="url" content="https://self-signed-cert.dev/">
+  <meta itemprop="description"
+        content="Online tool for self-signed SSL certificates generating and viewing. Fast, secure and free. Works on any platform.">
+  <script src="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js"></script>
+  <link href="styles.css" rel="stylesheet">
+  <link href="old.css" rel="stylesheet">
 </head>
 <body>
-  <header>
-      <h1 itemprop="headline">SSL Certificate Generator & Viewer</h1>
-      <p itemprop="description">Create a self-signed SSL certificate online in seconds. No registration required and absolutely free. No OpenSSL needed</p>
-      <div class="disclaimer" role="alert">
-          <strong>All operations on this page are performed entirely in your browser. No data is sent to any server. Your certificates and private keys never leave your device.</strong>
-      </div>
-  </header>
-  <main>
-      <nav class="tabs" role="tablist">
-          <button class="tab active" id="generate_cert" role="tab" aria-selected="true" aria-controls="generate-content">Generate Certificate</button>
-          <button class="tab" id="view_cert" role="tab" aria-selected="false" aria-controls="view-content">View Certificate</button>
-      </nav>
-      <section class="certificate-frame">
-          <div class="tab-content active" id="generate-content">
-              <form id="cert-form">
-                  <div class="form-row">
-                      <label>Common Name:
-                          <input type="text" id="cn" placeholder="example.com" required>
-                      </label>
-                      <label>Organization Name:
-                          <input type="text" id="organization" placeholder="Example Inc.">
-                      </label>
-                  </div>
+<header>
+  <a href="/">Home</a>
+  <a href="/faq.html">FAQ</a>
+</header>
 
-                  <div class="form-row">
-                      <label>Organization Unit:
-                          <input type="text" id="organizationalUnit" placeholder="IT Department">
-                      </label>
-                      <label>Locality (City):
-                          <input type="text" id="locality" placeholder="San Francisco">
-                      </label>
-                  </div>
+<main>
+  <h1 itemprop="headline">SSL Certificate Generator & Viewer</h1>
 
-                  <div class="form-row">
-                      <label>State/Province:
-                          <input type="text" id="state" placeholder="California">
-                      </label>
-                      <label>Country Code (2 letters):
-                          <input type="text" id="country" placeholder="US" maxlength="2">
-                      </label>
-                  </div>
+  <section>
+    <h2>Create a self-signed SSL certificate online in seconds. No registration required and
+      absolutely free. No OpenSSL needed</h2>
+    <p class="disclaimer" role="alert">
+      <strong>All operations on this page are performed entirely in your browser. No data is sent to any server.
+        Your certificates and private keys never leave your device.</strong>
+    </p>
+    <nav class="tabs" role="tablist">
+      <a href="/" class="tab tab-active">Generate Certificate</a>
+      <a href="view.html" class="tab">View Certificate</a>
+    </nav>
+    <form>
+      <label>
+        Common Name:
+        <input type="text" id="cn" placeholder="example.com" required>
+      </label>
 
-                  <div class="form-row">
-                      <label>Expiration (years):
-                          <input type="number" id="years" value="1" min="1" max="30" required placeholder="1">
-                      </label>
-                      <label>Key Size (bits):
-                          <select id="key-size">
-                              <option value="2048">2048 bits (Recommended)</option>
-                              <option value="4096">4096 bits</option>
-                          </select>
-                      </label>
-                  </div>
+      <label>
+        Organization Name:
+        <input type="text" id="org" placeholder="Example Inc." required>
+      </label>
 
-                  <div class="form-row">
-                      <label>Certificate Format:
-                          <select id="cert-format">
-                              <option value="pem-bundle">PEM Bundle (.pem file)</option>
-                              <option value="pem">PEM (.crt and .key files)</option>
-                              <option value="pfx">PFX (.pfx file)</option>
-                              <option value="p12">PKCS#12 (.p12 file)</option>
-                          </select>
-                      </label>
-                      <label id="password-label" style="display: none;">Password (for PFX/PKCS#12 format):
-                          <input type="password" id="password" placeholder="Optional password">
-                      </label>
-                  </div>
+      <label>
+        Organization Unit:
+        <input type="text" id="org_unit" placeholder="IT Department">
+      </label>
 
-                  <button type="submit">Generate Certificate</button>
-              </form>
-          </div>
+      <label>
+        Locality (City):
+        <input type="text" id="locality" placeholder="San Francisco">
+      </label>
 
-          <div class="tab-content" id="view-content">
-              <div class="viewer">
-                  <div class="file-input-container" id="file-input-container">
-                      <div class="file-input-text">
-                          <p>Select file</p>
-                          <p>or</p>
-                          <p>Drop file</p>
-                      </div>
-                      <input type="file" id="cert-file" accept=".pem,.crt,.key,.p7b,.pfx,.p12">
-                  </div>
+      <label>
+        State/Province:
+        <input type="text" id="state" placeholder="California">
+      </label>
 
-                  <!-- New Certificate Details Section with Beautiful Blocks -->
-                  <div id="cert-details">
-                      <div class="cert-section section-overview">
-                          <div class="cert-section-header">
-                              <span>Certificate Overview</span>
-                          </div>
-                          <div class="cert-section-content">
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Serial Number:</div>
-                                  <div class="cert-property-value" id="cert-serial"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Version:</div>
-                                  <div class="cert-property-value" id="cert-version"></div>
-                              </div>
-                          </div>
-                      </div>
+      <label>
+        Country Code (2 letters):
+        <input type="text" id="country" placeholder="US" maxlength="2" pattern="[A-Z]{2}">
+      </label>
 
-                      <div class="cert-section section-issuer">
-                          <div class="cert-section-header">
-                              <span>Issuer Information</span>
-                          </div>
-                          <div class="cert-section-content">
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Issuer:</div>
-                                  <div class="cert-property-value" id="cert-issuer"></div>
-                              </div>
-                          </div>
-                      </div>
+      <label>
+        Expiration (years):
+        <input type="number" id="years" value="1" min="1" step="1" max="30" required placeholder="1">
+      </label>
 
-                      <div class="cert-section section-subject">
-                          <div class="cert-section-header">
-                              <span>Subject Information</span>
-                          </div>
-                          <div class="cert-section-content">
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Subject:</div>
-                                  <div class="cert-property-value" id="cert-subject"></div>
-                              </div>
-                          </div>
-                      </div>
+      <label>
+        Key Size (bits):
+        <select id="key_size">
+          <option value="2048">2048 bits (Recommended)</option>
+          <option value="4096">4096 bits</option>
+        </select>
+      </label>
 
-                      <div class="cert-section section-validity">
-                          <div class="cert-section-header">
-                              <span>Validity Period</span>
-                          </div>
-                          <div class="cert-section-content">
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Not Valid Before:</div>
-                                  <div class="cert-property-value" id="cert-not-before"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Not Valid After:</div>
-                                  <div class="cert-property-value" id="cert-not-after"></div>
-                              </div>
-                          </div>
-                      </div>
+      <label>
+        Certificate Format:
+        <select id="cert_format">
+          <option value="pem-bundle">PEM Bundle (.pem file)</option>
+          <option value="pem">PEM (.crt and .key files)</option>
+          <option value="pfx">PFX (.pfx file)</option>
+          <option value="p12">PKCS#12 (.p12 file)</option>
+        </select>
+      </label>
 
-                      <div class="cert-section section-signature">
-                          <div class="cert-section-header">
-                              <span>Signature Information</span>
-                          </div>
-                          <div class="cert-section-content">
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Signature Algorithm:</div>
-                                  <div class="cert-property-value" id="cert-sig-alg"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Parameters:</div>
-                                  <div class="cert-property-value" id="cert-sig-params"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Signature (hex):</div>
-                                  <div class="cert-property-value multi-line-value" id="cert-signature"></div>
-                              </div>
-                          </div>
-                      </div>
+      <label id="password_label" class="hidden">Password (for PFX/PKCS#12 format):
+        <input type="password" id="password" placeholder="Optional password">
+      </label>
 
-                      <div class="cert-section section-key">
-                          <div class="cert-section-header">
-                              <span>Public Key Information</span>
-                          </div>
-                          <div class="cert-section-content">
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Algorithm:</div>
-                                  <div class="cert-property-value" id="cert-key-alg"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Key Size:</div>
-                                  <div class="cert-property-value" id="cert-key-size"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Exponent:</div>
-                                  <div class="cert-property-value" id="cert-key-exponent"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Modulus:</div>
-                                  <div class="cert-property-value multi-line-value" id="cert-key-modulus"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Public Key:</div>
-                                  <div class="cert-property-value multi-line-value" id="cert-public-key"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">Key Usage:</div>
-                                  <div class="cert-property-value" id="cert-key-usage"></div>
-                              </div>
-                          </div>
-                      </div>
+      <button type="submit">Generate Certificate</button>
+    </form>
+  </section>
 
-                      <div class="cert-section section-fingerprint">
-                          <div class="cert-section-header">
-                              <span>Certificate Fingerprints</span>
-                          </div>
-                          <div class="cert-section-content">
-                              <div class="cert-property">
-                                  <div class="cert-property-label">SHA-1:</div>
-                                  <div class="cert-property-value" id="cert-sha1"></div>
-                              </div>
-                              <div class="cert-property">
-                                  <div class="cert-property-label">SHA-256:</div>
-                                  <div class="cert-property-value" id="cert-sha256"></div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>
-  </main>
-  <footer>
-      <p>© 2025 self-signed-cert.dev</p>
-  </footer>
+</main>
+
+<footer>
+  <p>© 2025 self-signed-cert.dev</p>
+</footer>
 </body>
 </html>
