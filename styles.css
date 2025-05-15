@@ -1,15 +1,15 @@
 :root {
-    --primary: #4a86e8;
-    --primary-dark: #3a76d8;
-    --background: #f5f7f9;
-    --disclaimer-background: #4a86e81a;
-    --surface: #fff;
-    --text: #333333;
-    --text-light: #6b7c93;
-    --border-color: #cfd7e3;
+    --primary: #ffeb3b; /* Жовтий */
+    --primary-dark: #fdd835; /* Трохи темніший жовтий */
+    --background: #121212; /* Темно-сірий/чорний фон сторінки */
+    --disclaimer-background: #ffeb3b1a; /* Світло-жовтий фон для повідомлення */
+    --surface: #212121; /* Темно-сірий фон для блоків */
+    --text: #fffde7; /* Світло-жовтий/кремовий текст */
+    --text-light: #bdbdbd; /* Світло-сірий текст */
+    --border-color: #424242; /* Темно-сіра межа */
     --radius: 0.5rem;
     --input-padding: 0.75rem;
-    --input-border: #e1e5eb;
+    --input-border: #616161;
     --input-font-size: 1rem;
     --section-padding-horizontal: 1.25rem;
 }
@@ -78,11 +78,7 @@ section {
     border-radius: 0.5rem;
     line-height: 1.5;
     padding: 1.25rem;
-    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.05);
-    margin: 0 auto;
-    max-width: 50rem;
-    padding-left: var(--section-padding-horizontal);
-    padding-right: var(--section-padding-horizontal);
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1); /* Трохи темніша тінь */
 }
 
 .tabs {
@@ -91,7 +87,7 @@ section {
     padding-left: var(--section-padding-horizontal);
     padding-right: var(--section-padding-horizontal);
     margin-top: 1rem;
-    /* border-bottom: 1px solid var(--border-color); */ /* Видаляємо нижню межу */
+    /* border-bottom: 1px solid var(--border-color); */
 }
 
 .tab {
@@ -99,8 +95,8 @@ section {
     font-weight: 600;
     text-align: center;
     text-decoration: none;
-    color: var(--text-light);
-    background: var(--surface);
+    color: var(--primary); /* Жовтий текст для неактивних вкладок */
+    background: var(--surface); /* Темно-сірий фон для неактивних вкладок */
     border: 1px solid var(--border-color);
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
@@ -115,8 +111,8 @@ section {
 .tab-active {
     border-bottom: 1px solid var(--surface);
     font-weight: bold;
-    background-color: var(--background); /* Змінюємо колір фону на колір фону сторінки */
-    color: var(--primary); /* Змінюємо колір тексту на основний колір */
+    background-color: var(--primary); /* Жовтий фон для активної вкладки */
+    color: var(--text); /* Темний текст для активної вкладки */
 }
 
 form {
@@ -125,7 +121,7 @@ form {
     border-top: none;
     border-radius: 0 0 0.5rem 0.5rem;
     padding: 1.875rem;
-    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* Трохи темніша тінь */
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
@@ -146,11 +142,13 @@ input, select, button {
     border: 1px solid var(--input-border);
     border-radius: 0.5rem;
     font-size: 1rem;
+    background-color: #333; /* Темний фон для полів */
+    color: var(--text); /* Світлий текст у полях */
 }
 
 button {
     background-color: var(--primary);
-    color: var(--surface);
+    color: var(--background); /* Темний текст на жовтій кнопці */
     border: none;
     cursor: pointer;
     font-weight: 600;
@@ -164,4 +162,5 @@ button {
 footer {
     padding: 1.25rem var(--section-padding-horizontal);
     text-align: center;
+    color: var(--text-light);
 }
