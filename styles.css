@@ -91,7 +91,7 @@ section {
     padding-left: var(--section-padding-horizontal);
     padding-right: var(--section-padding-horizontal);
     margin-top: 1rem;
-    border-bottom: 1px solid var(--border-color); /* Додаємо нижню межу для розділення */
+    /* border-bottom: 1px solid var(--border-color); */ /* Видаляємо нижню межу */
 }
 
 .tab {
@@ -104,8 +104,8 @@ section {
     border: 1px solid var(--border-color);
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-    border-bottom: none; /* Прибираємо нижню межу у всіх неактивних вкладок */
-    margin-bottom: -1px; /* Трохи піднімаємо, щоб перекрити межу .tabs */
+    border-bottom: none;
+    margin-bottom: -1px;
 }
 
 .tab + .tab {
@@ -113,21 +113,23 @@ section {
 }
 
 .tab-active {
-    border-bottom: 1px solid var(--surface); /* Робимо нижню межу кольору фону */
-    font-weight: bold; /* Додамо жирний шрифт для кращої видимості */
+    border-bottom: 1px solid var(--surface);
+    font-weight: bold;
+    background-color: var(--background); /* Змінюємо колір фону на колір фону сторінки */
+    color: var(--primary); /* Змінюємо колір тексту на основний колір */
 }
 
 form {
     background: var(--surface);
     border: 1px solid var(--border-color);
-    border-top: none; /* Прибираємо верхню межу, щоб злити з активною вкладкою */
-    border-radius: 0 0 0.5rem 0.5rem; /* Залишаємо заокруглення тільки знизу */
+    border-top: none;
+    border-radius: 0 0 0.5rem 0.5rem;
     padding: 1.875rem;
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    margin-top: -1px; /* Піднімаємо форму, щоб злити з вкладками */
+    margin-top: -1px;
 }
 
 label {
