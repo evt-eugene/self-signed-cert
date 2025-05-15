@@ -79,6 +79,10 @@ section {
     line-height: 1.5;
     padding: 1.25rem;
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    max-width: 50rem;
+    padding-left: var(--section-padding-horizontal);
+    padding-right: var(--section-padding-horizontal);
 }
 
 .tabs {
@@ -126,6 +130,7 @@ form {
     flex-direction: column;
     gap: 1.25rem;
     margin-top: -1px;
+    /* Відступи тепер застосовуються до <section> */
 }
 
 label {
