@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/WebSite">
+<head>
+  <title>SSL Certificate Generator & Viewer | Create Self-Signed Certificates Online</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed. Fast, secure, and completely client-side.">
+  <meta name="keywords" content="SSL, Self-Signed, Certificate, Generator, Viewer, Online, Secure, HTTPS, OpenSSL, TLS">
+  <meta name="robots" content="index, follow">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://self-signed-cert.dev/">
+
+  <!-- Preconnect to CDN -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- Open Graph meta tags -->
+  <meta property="og:title" content="SSL Certificate Generator & Viewer">
+  <meta property="og:description" content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed.">
+  <meta property="og:url" content="https://self-signed-cert.dev/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card meta tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SSL Certificate Generator & Viewer">
+  <meta name="twitter:description" content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed.">
+
+  <!-- Schema.org markup -->
+  <meta itemprop="name" content="SSL Self-Signed Certificates Generator & Viewer">
+  <meta itemprop="url" content="https://self-signed-cert.dev/">
+  <meta itemprop="description"
+        content="Online tool for self-signed SSL certificates generating and viewing. Fast, secure and free. Works on any platform.">
+  <meta itemprop="keywords" content="SSL certificates, self-signed certificates, certificate generator">
+  <meta itemprop="author" content="self-signed-cert.dev">
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="styles4.css" as="style">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js" as="script">
+
+  <!-- Stylesheets -->
+  <link href="styles4.css" rel="stylesheet">
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js" defer></script>
+</head>
+
+<body>
+<header>
+  <nav aria-label="Main Navigation">
+    <a href="/" aria-current="page">Home</a>
+    <a href="/view.html">Certificate Viewer</a>
+    <a href="/faq.html">FAQ</a>
+    <a href="/about.html">About</a>
+  </nav>
+</header>
+
+<main>
+  <section>
+    <h1 itemprop="headline">SSL Certificate Generator & Viewer</h1>
+    <p class="disclaimer" role="alert">
+      <strong>All operations on this page are performed entirely in your browser. No data is sent to any server.
+        Your certificates and private keys never leave your device.</strong>
+    </p>
+  </section>
+
+  <nav class="tabs" role="tablist" aria-label="Application Features">
+    <a href="/" class="tab tab-active" role="tab" aria-selected="true" aria-controls="generate-panel">Generate Certificate</a>
+    <a href="/view.html" class="tab" role="tab" aria-selected="false" aria-controls="view-panel">View Certificate</a>
+  </nav>
+
+  <section id="generate-panel" role="tabpanel" aria-labelledby="generate-tab">
+    <form id="certificate-form">
+      <fieldset>
+        <legend>Certificate Details</legend>
+
+        <div class="form-group">
+          <label for="cn">Common Name (domain name):</label>
+          <input type="text" id="cn" name="cn" placeholder="example.com" required autocomplete="url">
+          <p class="field-hint">Domain name for your certificate, e.g. example.com</p>
+        </div>
+
+        <div class="form-group">
+          <label for="org">Organization Name:</label>
+          <input type="text" id="org" name="org" placeholder="Example Inc." required autocomplete="organization">
+          <p class="field-hint">Name of your company or organization</p>
+        </div>
+
+        <div class="form-group">
+          <label for="org_unit">Organization Unit:</label>
+          <input type="text" id="org_unit" name="org_unit" placeholder="IT Department" autocomplete="organization-title">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Location Information</legend>
+
+        <div class="form-group">
+          <label for="locality">Locality (City):</label>
+          <input type="text" id="locality" name="locality" placeholder="San Francisco" autocomplete="address-level2">
+        </div>
+
+        <div class="form-group">
+          <label for="state">State/Province:</label>
+          <input type="text" id="state" name="state" placeholder="California" autocomplete="address-level1">
+        </div>
+
+        <div class="form-group">
+          <label for="country">Country Code (2 letters):</label>
+          <input type="text" id="country" name="country" placeholder="US" maxlength="2" pattern="[A-Za-z]{2}"
+                 autocomplete="country">
+          <p class="field-hint">Two-letter ISO country code (e.g., US, GB, DE)</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Certificate Options</legend>
+
+        <div class="form-group">
+          <label for="years">Expiration (years):</label>
+          <input type="number" id="years" name="years" value="1" min="1" step="1" max="30" required placeholder="1">
+          <p class="field-hint">How long the certificate will be valid</p>
+        </div>
+
+        <div class="form-group">
+          <label for="key_size">Key Size (bits):</label>
+          <select id="key_size" name="key_size">
+            <option value="2048">2048 bits (Recommended)</option>
+            <option value="4096">4096 bits (More Secure, Slower)</option>
+          </select>
+          <p class="field-hint">Larger key size is more secure but slower to generate</p>
+        </div>
+
+        <div class="form-group">
+          <label for="cert_format">Certificate Format:</label>
+          <select id="cert_format" name="cert_format">
+            <option value="pem-bundle">PEM Bundle (.pem file)</option>
+            <option value="pem">PEM (.crt and .key files)</option>
+            <option value="pfx">PFX (.pfx file)</option>
+            <option value="p12">PKCS#12 (.p12 file)</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="password_container">
+          <label for="password" id="password_label">Password (for PFX/PKCS#12 format):</label>
+          <input type="password" id="password" name="password" placeholder="Optional password" autocomplete="new-password">
+          <p class="field-hint">Only needed for PFX/PKCS#12 formats</p>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit" class="primary-button">Generate Certificate</button>
+        <button type="reset" class="secondary-button">Reset Form</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <p>&copy; 2025 self-signed-cert.dev</p>
+    <nav aria-label="Footer Navigation">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Use</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
