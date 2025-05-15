@@ -45,6 +45,7 @@ header a {
     color: var(--primary);
     margin: 0 15px;
     font-weight: 600;
+    text-decoration: none; /* Видаляємо підкреслення для всіх посилань в хедері */
 }
 
 header a:hover {
@@ -81,7 +82,7 @@ section {
     padding: 12px 24px;
     font-weight: 600;
     text-align: center;
-    text-decoration: none;
+    text-decoration: none; /* Видаляємо підкреслення для всіх вкладок */
     color: var(--text-light);
     background: var(--surface);
     border: 1px solid var(--border-color);
@@ -95,6 +96,7 @@ section {
 
 .tab-active {
     border-bottom: 0;
+    text-decoration: none; /* Видаляємо підкреслення для активної вкладки */
 }
 
 form {
