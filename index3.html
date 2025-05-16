@@ -1,172 +1,180 @@
-<!DOCTYPE html>
-<html lang="en" itemscope itemtype="https://schema.org/WebSite">
+<!DOCTYPE html><html lang="ru">
 <head>
-  <title>SSL Certificate Generator & Viewer | Create Self-Signed Certificates Online</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-        content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed. Fast, secure, and completely client-side.">
-  <meta name="keywords" content="SSL, Self-Signed, Certificate, Generator, Viewer, Online, Secure, HTTPS, OpenSSL, TLS">
-  <meta name="robots" content="index, follow">
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://self-signed-cert.dev/">
-
-  <!-- Preconnect to CDN -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-
-  <!-- Open Graph meta tags -->
-  <meta property="og:title" content="SSL Certificate Generator & Viewer">
-  <meta property="og:description" content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed.">
-  <meta property="og:url" content="https://self-signed-cert.dev/">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter Card meta tags -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="SSL Certificate Generator & Viewer">
-  <meta name="twitter:description" content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed.">
-
-  <!-- Schema.org markup -->
-  <meta itemprop="name" content="SSL Self-Signed Certificates Generator & Viewer">
-  <meta itemprop="url" content="https://self-signed-cert.dev/">
-  <meta itemprop="description"
-        content="Online tool for self-signed SSL certificates generating and viewing. Fast, secure and free. Works on any platform.">
-  <meta itemprop="keywords" content="SSL certificates, self-signed certificates, certificate generator">
-  <meta itemprop="author" content="self-signed-cert.dev">
-
-  <!-- Preload critical resources -->
-  <link rel="preload" href="styles4.css" as="style">
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js" as="script">
-
-  <!-- Stylesheets -->
-  <link href="styles4.css" rel="stylesheet">
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Генератор самоподписанных SSL/TLS сертификатов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.2rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+    p.subhead {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin: 0.8rem 0 0.3rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .output textarea {
+      height: 200px;
+      margin-top: 0.5rem;
+      font-family: monospace;
+    }
+    .warning {
+      color: #c00;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
-
 <body>
-<header>
-  <nav aria-label="Main Navigation">
-    <a href="/" aria-current="page">Home</a>
-    <a href="/view.html">Certificate Viewer</a>
-    <a href="/faq.html">FAQ</a>
-    <a href="/about.html">About</a>
-  </nav>
-</header>
+  <div class="container">
+    <h1>Генератор самоподписанных SSL/TLS сертификатов</h1>
+    <p class="subhead">Быстро создайте сертификат для разработки и тестирования.</p><div class="section">
+  <h2>Основная информация</h2>
+  <label for="cn">Общее имя (CN)</label>
+  <input type="text" id="cn" placeholder="mysite.local" />
+  <label for="o">Организация (O)</label>
+  <input type="text" id="o" placeholder="My Company Ltd." />
+  <label for="ou">Подразделение (OU)</label>
+  <input type="text" id="ou" placeholder="IT Department" />
+  <label for="l">Город (L)</label>
+  <input type="text" id="l" />
+  <label for="st">Область/Штат (ST)</label>
+  <input type="text" id="st" />
+  <label for="c">Страна (C)</label>
+  <select id="c">
+    <option value="RU">RU</option>
+    <option value="US">US</option>
+    <option value="DE">DE</option>
+    <option value="CN">CN</option>
+  </select>
+  <label for="email">Email адрес</label>
+  <input type="email" id="email" placeholder="email@example.com" />
+</div>
 
-<main>
-  <section>
-    <h1 itemprop="headline">SSL Certificate Generator & Viewer</h1>
-    <p class="disclaimer" role="alert">
-      <strong>All operations on this page are performed entirely in your browser. No data is sent to any server.
-        Your certificates and private keys never leave your device.</strong>
-    </p>
-  </section>
+<div class="section">
+  <h2>Параметры сертификата</h2>
+  <label for="validity">Срок действия (в днях)</label>
+  <select id="validity">
+    <option value="30">30</option>
+    <option value="90">90</option>
+    <option value="365">1 год</option>
+    <option value="730">2 года</option>
+  </select>
+  <label for="keySize">Размер ключа</label>
+  <select id="keySize">
+    <option value="2048">2048</option>
+    <option value="4096">4096</option>
+  </select>
+</div>
 
-  <nav class="tabs" role="tablist" aria-label="Application Features">
-    <a href="/" class="tab tab-active" role="tab" aria-selected="true" aria-controls="generate-panel">Generate Certificate</a>
-    <a href="/view.html" class="tab" role="tab" aria-selected="false" aria-controls="view-panel">View Certificate</a>
-  </nav>
+<button id="generate">Сгенерировать сертификат</button>
 
-  <section id="generate-panel" role="tabpanel" aria-labelledby="generate-tab">
-    <form id="certificate-form">
-      <fieldset>
-        <legend>Certificate Details</legend>
+<div class="section output" style="display:none">
+  <h2>Ваш сертификат готов!</h2>
 
-        <div class="form-group">
-          <label for="cn">Common Name (domain name):</label>
-          <input type="text" id="cn" name="cn" placeholder="example.com" required autocomplete="url">
-          <p class="field-hint">Domain name for your certificate, e.g. example.com</p>
-        </div>
+  <label>Сертификат (CRT)</label>
+  <textarea id="cert" readonly></textarea>
+  <button onclick="copyToClipboard('cert')">Копировать сертификат</button>
 
-        <div class="form-group">
-          <label for="org">Organization Name:</label>
-          <input type="text" id="org" name="org" placeholder="Example Inc." required autocomplete="organization">
-          <p class="field-hint">Name of your company or organization</p>
-        </div>
+  <label>Приватный ключ (KEY)</label>
+  <textarea id="key" readonly></textarea>
+  <button onclick="copyToClipboard('key')">Копировать ключ</button>
+  <p class="warning">Внимание! Храните приватный ключ в безопасности и никому не передавайте.</p>
+</div>
 
-        <div class="form-group">
-          <label for="org_unit">Organization Unit:</label>
-          <input type="text" id="org_unit" name="org_unit" placeholder="IT Department" autocomplete="organization-title">
-        </div>
-      </fieldset>
+  </div>  <script src="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js"
+    integrity="sha384-xwFRcFoKVGItSqaDDNUZrkDxxYmrSncrgqaASuRYvY5kVaC02C/bzmQa3ZThYJ7p"
+    crossorigin="anonymous"></script>  <script>
+    document.getElementById('generate').addEventListener('click', async () => {
+      const pki = forge.pki;
+      const keys = pki.rsa.generateKeyPair({ bits: parseInt(document.getElementById('keySize').value), e: 0x10001 });
+      const cert = pki.createCertificate();
+      cert.publicKey = keys.publicKey;
+      cert.serialNumber = (Math.floor(Math.random() * 100000)).toString();
 
-      <fieldset>
-        <legend>Location Information</legend>
+      const now = new Date();
+      cert.validity.notBefore = now;
+      cert.validity.notAfter = new Date(now.getTime() + parseInt(document.getElementById('validity').value) * 24 * 60 * 60 * 1000);
 
-        <div class="form-group">
-          <label for="locality">Locality (City):</label>
-          <input type="text" id="locality" name="locality" placeholder="San Francisco" autocomplete="address-level2">
-        </div>
+      const attrs = [
+        { name: 'commonName', value: document.getElementById('cn').value },
+        { name: 'organizationName', value: document.getElementById('o').value },
+        { name: 'organizationalUnitName', value: document.getElementById('ou').value },
+        { name: 'localityName', value: document.getElementById('l').value },
+        { name: 'stateOrProvinceName', value: document.getElementById('st').value },
+        { name: 'countryName', value: document.getElementById('c').value },
+        { name: 'emailAddress', value: document.getElementById('email').value },
+      ].filter(attr => attr.value);
 
-        <div class="form-group">
-          <label for="state">State/Province:</label>
-          <input type="text" id="state" name="state" placeholder="California" autocomplete="address-level1">
-        </div>
+      cert.setSubject(attrs);
+      cert.setIssuer(attrs);
 
-        <div class="form-group">
-          <label for="country">Country Code (2 letters):</label>
-          <input type="text" id="country" name="country" placeholder="US" maxlength="2" pattern="[A-Za-z]{2}"
-                 autocomplete="country">
-          <p class="field-hint">Two-letter ISO country code (e.g., US, GB, DE)</p>
-        </div>
-      </fieldset>
+      cert.setExtensions([
+        { name: 'basicConstraints', cA: true },
+        { name: 'keyUsage', keyCertSign: true, digitalSignature: true, nonRepudiation: true },
+        { name: 'extKeyUsage', serverAuth: true, clientAuth: true },
+        { name: 'nsCertType', client: true, server: true },
+        { name: 'subjectAltName', altNames: [] }
+      ]);
 
-      <fieldset>
-        <legend>Certificate Options</legend>
+      cert.sign(keys.privateKey);
 
-        <div class="form-group">
-          <label for="years">Expiration (years):</label>
-          <input type="number" id="years" name="years" value="1" min="1" step="1" max="30" required placeholder="1">
-          <p class="field-hint">How long the certificate will be valid</p>
-        </div>
+      document.getElementById('cert').value = pki.certificateToPem(cert);
+      document.getElementById('key').value = pki.privateKeyToPem(keys.privateKey);
+      document.querySelector('.output').style.display = 'block';
+    });
 
-        <div class="form-group">
-          <label for="key_size">Key Size (bits):</label>
-          <select id="key_size" name="key_size">
-            <option value="2048">2048 bits (Recommended)</option>
-            <option value="4096">4096 bits (More Secure, Slower)</option>
-          </select>
-          <p class="field-hint">Larger key size is more secure but slower to generate</p>
-        </div>
-
-        <div class="form-group">
-          <label for="cert_format">Certificate Format:</label>
-          <select id="cert_format" name="cert_format">
-            <option value="pem-bundle">PEM Bundle (.pem file)</option>
-            <option value="pem">PEM (.crt and .key files)</option>
-            <option value="pfx">PFX (.pfx file)</option>
-            <option value="p12">PKCS#12 (.p12 file)</option>
-          </select>
-        </div>
-
-        <div class="form-group" id="password_container">
-          <label for="password" id="password_label">Password (for PFX/PKCS#12 format):</label>
-          <input type="password" id="password" name="password" placeholder="Optional password" autocomplete="new-password">
-          <p class="field-hint">Only needed for PFX/PKCS#12 formats</p>
-        </div>
-      </fieldset>
-
-      <div class="form-actions">
-        <button type="submit" class="primary-button">Generate Certificate</button>
-        <button type="reset" class="secondary-button">Reset Form</button>
-      </div>
-    </form>
-  </section>
-</main>
-
-<footer>
-  <div class="footer-content">
-    <p>&copy; 2025 self-signed-cert.dev</p>
-    <nav aria-label="Footer Navigation">
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms of Use</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-  </div>
-</footer>
-
-<script src="app.js" defer></script>
-</body>
-</html>
+    function copyToClipboard(id) {
+      const el = document.getElementById(id);
+      el.select();
+      document.execCommand('copy');
+    }
+  </script></body>
+  </html>
