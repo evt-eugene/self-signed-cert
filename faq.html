@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/WebSite">
+<head>
+  <title>SSL Certificate FAQ</title>
+  <base href="/">
+  <link rel="canonical" href="https://self-signed-cert.dev/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="Comprehensive FAQ about SSL certificates: types, purpose, usage, troubleshooting, and more.">
+  <meta name="keywords" content="SSL, Self-Signed, Certificate, Generator, Viewer, Online, Secure, HTTPS, OpenSSL, FAQ">
+  <meta name="robots" content="index, follow">
+  <meta itemprop="name" content="SSL Self-Signed Certificates Generator & Viewer">
+  <meta itemprop="url" content="https://self-signed-cert.dev/">
+  <meta itemprop="description"
+        content="Online tool for self-signed SSL certificates generating and viewing. Fast, secure and free. Works on any platform.">
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<header>
+  <a href="/">Home</a>
+  <a href="/faq.html">FAQ</a>
+</header>
+
+<main itemscope itemtype="https://schema.org/FAQPage">
+  <img class="logo" src="cert.svg" width="113" height="88" alt="Certificate Logo">
+  <h1 itemprop="headline">Frequently Asked Questions About SSL/TLS Certificates</h1>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">What is an SSL certificate?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        An SSL certificate (Secure Sockets Layer) is a cryptographic protocol that provides secure communication between
+        a user and a server. The modern standard is TLS (Transport Layer Security), but SSL is still used as a term.
+      </p>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">Why do I need an SSL certificate?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        SSL certificates encrypt data, protect against man-in-the-middle attacks, build user trust, and positively
+        affect SEO (search engines prefer HTTPS).
+      </p>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">What does an SSL certificate contain?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+        A certificate contains:
+        <ul>
+          <li>Owner information (CN, organization, country)</li>
+          <li>Expiration date</li>
+          <li>Serial number</li>
+          <li>Public key</li>
+          <li>Digital signature of the Certificate Authority (CA)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">What are the types of SSL certificates?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+        Certificates are classified by validation level:
+        <ul>
+          <li><strong>DV (Domain Validation)</strong> — only domain ownership is verified.</li>
+          <li><strong>OV (Organization Validation)</strong> — organization and domain are verified.</li>
+          <li><strong>EV (Extended Validation)</strong> — strictest validation, shows a green bar in some browsers.</li>
+        </ul>
+        And by coverage:
+        <ul>
+          <li><strong>Single-domain</strong> — covers one domain.</li>
+          <li><strong>Wildcard</strong> — covers one domain and all its subdomains.</li>
+          <li><strong>Multi-domain (SAN)</strong> — one certificate for multiple domains.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">When should I use DV, OV, or EV certificates?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        <strong>DV</strong> — for blogs, personal sites, MVPs.<br>
+        <strong>OV</strong> — for business sites that need organizational identity.<br>
+        <strong>EV</strong> — for banks, government, and financial institutions.
+      </p>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">What are common SSL certificate and key file formats?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+        SSL certificates and keys come in several file formats, each suited to specific use cases:
+        <ul>
+          <li><strong>.PEM (Privacy-Enhanced Mail)</strong> — Base64 encoded ASCII files. Commonly used in
+            Linux/Apache/OpenSSL. Extensions: <code>.pem</code>, <code>.crt</code>, <code>.cer</code>, <code>.key</code>.
+          </li>
+          <li><strong>.DER (Distinguished Encoding Rules)</strong> — Binary format of a certificate, mostly used in Java
+            platforms. Extension: <code>.der</code>.
+          </li>
+          <li><strong>.PFX/.P12 (PKCS#12)</strong> — Binary format that stores certificate, intermediate CAs, and
+            private
+            key in one encrypted file. Used in Windows/IIS. Extensions: <code>.pfx</code>, <code>.p12</code>.
+          </li>
+          <li><strong>.CRT/.CER</strong> — Usually PEM or DER encoded certificate file (no private key). Interchangeable
+            depending on encoding.
+          </li>
+          <li><strong>.KEY</strong> — Contains the private key, often in PEM format. Should be kept secure and never
+            shared.
+          </li>
+        </ul>
+        <strong>When to use which:</strong>
+        <ul>
+          <li>Use <code>.PEM</code> for Apache, Nginx, HAProxy, and most Linux-based services.</li>
+          <li>Use <code>.PFX</code> for Windows environments like IIS and for importing into Windows Certificate Store.
+          </li>
+          <li>Use <code>.DER</code> if required by Java-based applications (e.g., Tomcat with <code>keytool</code>).
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">What is OpenSSL?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        OpenSSL is an <a href="https://www.openssl.org/" target="_blank" rel="noopener noreferrer">open-source
+        library</a> that implements SSL and TLS protocols. It is used to create certificates,
+        generate keys, create Certificate Signing Requests (CSR), verify certificates, and more.
+      </p>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How does HTTPS/SSL work?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        HTTPS uses SSL/TLS to establish a secure connection. When connecting, the browser checks the server’s
+        certificate,
+        initiates a TLS handshake, and establishes an encrypted channel for communication.
+      </p>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">Common errors and how to fix them</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        <strong>Java:</strong> javax.net.ssl.SSLHandshakeException — make sure the certificate is in the truststore:
+        <code>keytool -import -trustcacerts -file cert.pem -keystore cacerts</code><br>
+        <strong>Node.js:</strong> Error: self signed certificate — set <code>rejectUnauthorized: false</code> (not
+        recommended in production)<br>
+        <strong>Python:</strong> SSL: CERTIFICATE_VERIFY_FAILED — use <code>requests.get(url, verify=False)</code> or
+        install the CA cert<br>
+        <strong>Android:</strong> NetworkSecurityPolicy — configure network_security_config.xml<br>
+        <strong>Windows:</strong> Import the certificate into “Trusted Root Certification Authorities” via certmgr.msc
+      </p>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How to get a free SSL certificate?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        You can get a free SSL certificate from <strong>Let’s Encrypt</strong>, a nonprofit Certificate Authority. Use
+        tools like <code>Certbot</code> to automatically obtain and renew certificates. Alternatives include
+        <code>ZeroSSL</code> and <code>Buypass</code>.
+      </p>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How to install SSL on Nginx / Apache?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+        <strong>For Nginx:</strong>
+        <pre>
+ssl_certificate /etc/ssl/certs/your_cert.pem;
+ssl_certificate_key /etc/ssl/private/your_key.pem;
+    </pre>
+        <strong>For Apache:</strong>
+        <pre>
+SSLEngine on
+SSLCertificateFile /etc/ssl/certs/your_cert.pem
+SSLCertificateKeyFile /etc/ssl/private/your_key.pem
+    </pre>
+        Restart the web server after applying changes.
+      </div>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How to check certificate expiration?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+        Use OpenSSL:
+        <pre>
+openssl x509 -in your_cert.pem -noout -enddate
+        </pre>
+        Or check remotely:
+        <pre>
+openssl s_client -connect yoursite.com:443 | openssl x509 -noout -enddate
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">What is a certificate chain?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        A certificate chain is a hierarchy from your server certificate to the root CA, often including intermediate
+        CAs. It ensures trust by linking your certificate to a trusted root.
+      </p>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How to generate a Certificate Signing Request (CSR)?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+        Use OpenSSL:
+        <pre>
+openssl req -new -newkey rsa:2048 -nodes -keyout your.key -out your.csr
+        </pre>
+        This creates a private key and a Certificate Signing Request (CSR) to be sent to a Certificate Authority.
+      </div>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How to redirect HTTP to HTTPS?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+        <strong>Nginx:</strong>
+        <pre>
+server {
+  listen 80;
+  return 301 https://$host$request_uri;
+}
+        </pre>
+        <strong>Apache (.htaccess):</strong>
+        <pre>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How to use certificates in Docker / Kubernetes?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+        <strong>Docker:</strong> Mount certificates using volumes:
+        <pre>
+docker run -v /local/certs:/etc/ssl cert-based-image
+        </pre>
+        <strong>Kubernetes:</strong> Use secrets:
+        <pre>
+kubectl create secret tls my-cert --cert=cert.pem --key=key.pem
+        </pre>
+        Then mount the secret in a pod and configure the container to use the path.
+      </div>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How to fix ERR_CERT_COMMON_NAME_INVALID?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+        This error means the certificate’s Common Name (CN) or Subject Alternative Name (SAN) does not match the domain
+        name.
+        <ul>
+          <li>Ensure the domain name used matches exactly the CN or SAN in the certificate.</li>
+          <li>Use wildcard certificates or SANs to cover subdomains.</li>
+          <li>Regenerate the certificate with the correct domain if needed.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How to create a self-signed certificate?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        Use OpenSSL: <br>
+        <code>
+          openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem
+        </code>
+      </p>
+    </div>
+  </section>
+
+  <section itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <h2 itemprop="name">How to renew an SSL certificate?</h2>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <p itemprop="text">
+        You cannot extend an expired certificate; you must generate a new one, sign it, and reinstall it. Some ACME
+        clients like Certbot handle this automatically.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2025 self-signed-cert.dev
+</footer>
+</body>
+</html>
