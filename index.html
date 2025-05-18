@@ -20,22 +20,34 @@
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
+  "@graph": [
     {
-      "@type": "Question",
-      "name": "Как сгенерировать самоподписанный SSL-сертификат?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Заполните форму на главной странице, укажите данные организации, выберите формат и нажмите 'Generate Certificate'."
+      "@type": "WebSite",
+      "name": "SSL Certificate Generator & Viewer",
+      "url": "https://self-signed-cert.dev/",
+      "description": "Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed."
+    },
+    {
+      "@type": "WebApplication",
+      "name": "SSL Certificate Generator",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "url": "https://self-signed-cert.dev/",
+      "description": "Web-based tool to generate and view self-signed SSL certificates without OpenSSL. Fully offline and secure.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
       }
     },
     {
-      "@type": "Question",
-      "name": "Отправляются ли данные на сервер?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Нет. Все операции выполняются в вашем браузере. Сертификаты и ключи не покидают ваше устройство."
+      "@type": "Organization",
+      "name": "self-signed-cert.dev",
+      "url": "https://self-signed-cert.dev/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://self-signed-cert.dev/cert.svg"
       }
     }
   ]
