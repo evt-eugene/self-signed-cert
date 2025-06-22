@@ -64,43 +64,39 @@ window.addEventListener('DOMContentLoaded', function() {
             const pemKey = pki.privateKeyToPem(keys.privateKey);
 
             if (certFormat === 'pem-bundle') {
-                download(`${cn}.pem`, pemCert + pemKey);
+                downloadText(`${cn}.pem`, pemCert + pemKey);
             } else if (certFormat === 'pem') {
-                download(`${cn}.crt`, pemCert);
-                download(`${cn}.key`, pemKey);
+                downloadText(`${cn}.crt`, pemCert);
+                downloadText(`${cn}.key`, pemKey);
             } else if (certFormat === 'pfx' || certFormat === 'p12') {
-                const p12Asn1 = forge.pkcs12.toPkcs12Asn1(
-                    keys.privateKey, [cert],
-                    password || null,
-                    { algorithm: '3des' }
-                );
+                const p12Asn1 = forge.pkcs12.toPkcs12Asn1(keys.privateKey, [cert], password || null, { algorithm: '3des' });
                 const p12Der = forge.asn1.toDer(p12Asn1).getBytes();
                 const p12b64 = forge.util.encode64(p12Der);
                 const p12Blob = new Blob([forge.util.decode64(p12b64)], { type: 'application/x-pkcs12' });
-                downloadBlob(p12Blob, `${cn}.${certFormat}`);
+                downloadBlob(`${cn}.${certFormat}`, p12Blob);
             }
-        }
+    }
 
-        function download(filename, text) {
-            const element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-            element.setAttribute('download', filename);
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
-        }
+    function downloadText(filename, text) {
+        download(filename, 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    }
 
-        function downloadBlob(blob, filename) {
-            const url = window.URL.createObjectURL(blob);
-            const element = document.createElement('a');
-            element.href = url;
-            element.download = filename;
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
+    function downloadBlob(filename, blob) {
+        const url = window.URL.createObjectURL(blob);
+        download(filename, url);
+        setTimeout(function() {
             window.URL.revokeObjectURL(url);
-            document.body.removeChild(element);
-        }
+        }, 400);
+    }
+
+    function download(href, filename) {
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = filename;
+        anchor.style.display = 'none';
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+    }
 });
 

@@ -1,0 +1,20 @@
+.viewer {
+  background: var(--surface);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dropzone {
+  border: 2px dashed var(--input-border);
+  background: #fff9e6;
+  padding: 20px;
+  text-align: center;
+  color: #777;
+  transition: background 0.2s;
+}
+
+.dropzone:hover {
+  background: #fff3d6;
+}
