@@ -76,42 +76,42 @@
     <form id="generate_form">
         <label>
             Common Name:
-            <input type="text" id="cn" placeholder="example.com" required="required">
+            <input type="text" id="cn" placeholder="example.com" required="required" autocomplete="cn">
         </label>
 
         <label>
             Organization Name:
-            <input type="text" id="org" placeholder="Example Inc." required="required">
+            <input type="text" id="org" placeholder="Example Inc." required="required" autocomplete="org">
         </label>
 
         <label>
             Organization Unit:
-            <input type="text" id="org_unit" placeholder="IT Department">
+            <input type="text" id="org_unit" placeholder="IT Department" autocomplete="org-unit">
         </label>
 
         <label>
             Locality (City):
-            <input type="text" id="locality" placeholder="San Francisco">
+            <input type="text" id="locality" placeholder="San Francisco" autocomplete="locality">
         </label>
 
         <label>
             State/Province:
-            <input type="text" id="state" placeholder="California">
+            <input type="text" id="state" placeholder="California" autocomplete="state">
         </label>
 
         <label>
             Country Code (2 letters):
-            <input type="text" id="country" placeholder="US" maxlength="2" pattern="[A-Z]{2}">
+            <input type="text" id="country" placeholder="US" maxlength="2" pattern="[A-Z]{2}" autocomplete="country">
         </label>
 
         <label>
             Expiration (years):
-            <input type="number" id="years" value="1" min="1" step="1" max="30" required="required" placeholder="1">
+            <input type="number" id="years" value="1" min="1" step="1" max="30" required="required" placeholder="1" autocomplete="years">
         </label>
 
         <label>
             Key Size (bits):
-            <select id="key_size">
+            <select id="key_size" autocomplete="key-size">
                 <option value="2048">2048 bits (Recommended)</option>
                 <option value="4096">4096 bits</option>
             </select>
@@ -119,7 +119,7 @@
 
         <label>
             Certificate Format:
-            <select id="cert_format">
+            <select id="cert_format" autocomplete="cert-format">
                 <option value="pem-bundle">PEM Bundle (.pem file)</option>
                 <option value="pem">PEM (.crt and .key files)</option>
                 <option value="pfx">PFX (.pfx file)</option>
@@ -128,7 +128,7 @@
         </label>
 
         <label id="password_label" class="hidden">Password (for PFX/PKCS#12 format):
-            <input type="password" id="password" placeholder="Optional password">
+            <input type="password" id="password" placeholder="Optional password" autocomplete="off">
         </label>
 
         <button type="submit">Generate Certificate</button>
