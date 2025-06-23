@@ -89,9 +89,9 @@ window.addEventListener('DOMContentLoaded', function() {
         }, 400);
     }
 
-    function download(href, filename) {
+    function download(filename, href) {
         const anchor = document.createElement('a');
-        anchor.href = url;
+        anchor.href = href;
         anchor.download = filename;
         anchor.style.display = 'none';
         document.body.appendChild(anchor);
