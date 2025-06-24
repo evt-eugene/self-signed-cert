@@ -86,7 +86,7 @@ window.addEventListener('DOMContentLoaded', function() {
         download(filename, url);
         setTimeout(function() {
             window.URL.revokeObjectURL(url);
-        }, 400);
+        }, 500);
     }
 
     function download(filename, href) {
@@ -96,7 +96,9 @@ window.addEventListener('DOMContentLoaded', function() {
         anchor.style.display = 'none';
         document.body.appendChild(anchor);
         anchor.click();
-        document.body.removeChild(anchor);
+        setTimeout(function() {
+            document.body.removeChild(anchor);
+        }, 500);
     }
 });
 
