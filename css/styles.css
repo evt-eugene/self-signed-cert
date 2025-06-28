@@ -45,7 +45,7 @@ h2 {
 header, footer {
     display: flex;
     justify-content: center;
-    background: #3a3a3a;
+    background: var(--background);
     padding: 1.25rem;
     margin: 0 0 1.25rem;
 }
