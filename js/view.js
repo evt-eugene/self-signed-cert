@@ -2,28 +2,13 @@ window.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('cert_file').addEventListener('change', function(event) {
         const file = event.target.files[0];
-        viewFile(file);
-    });
-
-    document.getElementById('dropzone').addEventListener('drop', function(event) {
-        event.preventDefault();
-
-        const file = event.dataTransfer.files[0];
-        viewFile(file);
-    });
-
-    document.getElementById('dropzone').addEventListener('dragover', function(event) {
-        event.preventDefault();
-    });
-
-    function viewFile(file) {
         if (file) {
-            const extension = file.name.split('.').pop().toLowerCase();
-            if (['pem', 'crt', 'key', 'p7b', 'pfx', 'p12'].indexOf(extension) >= 0) {
-                viewCert(file);
-            }
+          const extension = file.name.split('.').pop().toLowerCase();
+          if (['pem', 'crt', 'key', 'p7b', 'pfx', 'p12'].indexOf(extension) >= 0) {
+            viewCert(file);
+          }
         }
-    }
+    });
 
     function viewCert(file) {
             const reader = new FileReader();
