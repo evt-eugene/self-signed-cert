@@ -6,20 +6,6 @@
   gap: 16px;
 }
 
-.dropzone {
-  border: 2px dashed var(--input-border);
-  background: #fff9e6;
-  padding: 20px;
-  text-align: center;
-  color: #777;
-  transition: background 0.2s;
-  margin-bottom: 1.25rem;
-}
-
-.dropzone:hover {
-  background: #fff3d6;
-}
-
 .cert-section {
             background: var(--section-bg);
             border-radius: var(--radius);
