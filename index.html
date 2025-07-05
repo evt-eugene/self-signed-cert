@@ -1,145 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="https://schema.org/WebSite">
-<head>
+  <head>
     <title>SSL Certificate Generator & Viewer</title>
     <base href="/">
     <link rel="canonical" href="https://self-signed-cert.dev/">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed.">
-    <meta name="keywords" content="SSL, Self-Signed, Certificate, Generator, Viewer, Online, Secure, HTTPS, OpenSSL">
-    <meta name="robots" content="index, follow">
-    <meta itemprop="name" content="SSL Self-Signed Certificates Generator & Viewer">
-    <meta itemprop="url" content="https://self-signed-cert.dev/">
-    <meta itemprop="description" content="Online tool for self-signed SSL certificates generating and viewing. Fast, secure and free. Works on any platform.">
-    <script src="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js"
-            integrity="sha256-3Gf9EyQnrZbJZmyESzlWVBPEDdsfLQY8U1Evv204ff0="
-            crossorigin="anonymous"
-            defer>
-    </script>
     <link href="css/styles.css" rel="stylesheet">
-    <script src="js/generate.js" defer></script>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "name": "SSL Certificate Generator & Viewer",
-      "url": "https://self-signed-cert.dev/",
-      "description": "Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed."
-    },
-    {
-      "@type": "WebApplication",
-      "name": "SSL Certificate Generator",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "All",
-      "browserRequirements": "Requires JavaScript",
-      "url": "https://self-signed-cert.dev/",
-      "description": "Web-based tool to generate and view self-signed SSL certificates without OpenSSL. Fully offline and secure.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    },
-    {
-      "@type": "Organization",
-      "name": "self-signed-cert.dev",
-      "url": "https://self-signed-cert.dev/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://self-signed-cert.dev/cert.svg"
-      }
-    }
-  ]
-}
-    </script>
-</head>
-<body>
-<header>
-    <a href="/">Home</a>
-    <a href="/faq.html">FAQ</a>
-</header>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/faq.html">FAQ</a>
+      </nav>
+    </header>
 
-<main>
-    <img class="logo" src="cert.svg" width="113" height="88" alt="Certificate Logo">
-    <section>
-        <h1 itemprop="headline">SSL Certificate Generator & Viewer</h1>
-        <p class="disclaimer" role="alert">
-            <strong>All operations on this page are performed entirely in your browser. No data is sent to any server.
-                Your certificates and private keys never leave your device.</strong>
-        </p>
-    </section>
-    <nav class="tabs" role="tablist" aria-label="Operations Tabs">
-        <a href="/" class="tab tab-active" role="tab" aria-label="Generate" aria-selected="true">Generate Certificate</a>
-        <a href="view.html" class="tab" role="tab" aria-label="View" aria-selected="false">View Certificate</a>
-    </nav>
-    <form id="generate_form" action="/">
-        <label>
-            Common Name:
-            <input type="text" id="cn" placeholder="example.com" required="required" autocomplete="cn">
-        </label>
+    <main>
+      <img class="logo" src="img/cert.svg" width="113" height="88" alt="Certificate Logo">
+      <article>
+        <h2><a href="/generate.html">Вышел Cert Generator 1.0</a></h2>
+        <figure>
+          <img src="https://i0.wp.com/www.omgubuntu.co.uk/wp-content/uploads/2025/07/micropc-2.jpg?resize=406%2C232&ssl=1" alt="Логотип Ubuntu">
+          <figcaption>Ubuntu 24.04 LTS</figcaption>
+        </figure>
+        <p>Компания Canonical представила новую версию Ubuntu 24.04 LTS с множеством улучшений...</p>
+      </article>
 
-        <label>
-            Organization Name:
-            <input type="text" id="org" placeholder="Example Inc." required="required" autocomplete="org">
-        </label>
+      <article>
+        <h2><a href="/view.html">Вышел Cert Viewer 1.0</a></h2>
+        <figure>
+          <img src="https://i0.wp.com/www.omgubuntu.co.uk/wp-content/uploads/2025/06/ubuntu-energy-saving-eu.jpg?resize=406%2C232&ssl=1" alt="Логотип Ubuntu">
+          <figcaption>Ubuntu 24.04 LTS</figcaption>
+        </figure>
+        <p>Компания Canonical представила новую версию Ubuntu 24.04 LTS с множеством улучшений...</p>
+      </article>
+    </main>
 
-        <label>
-            Organization Unit:
-            <input type="text" id="org_unit" placeholder="IT Department" autocomplete="org-unit">
-        </label>
+    <aside>
+      <section aria-label="Популярное">
+        <h2>Популярные статьи</h2>
+        <ul>
+          <li><a href="/популярная-1">Как установить Flatpak</a></li>
+          <li><a href="/популярная-2">Настройка тем в Ubuntu</a></li>
+        </ul>
+      </section>
+    </aside>
 
-        <label>
-            Locality (City):
-            <input type="text" id="locality" placeholder="San Francisco" autocomplete="locality">
-        </label>
-
-        <label>
-            State/Province:
-            <input type="text" id="state" placeholder="California" autocomplete="state">
-        </label>
-
-        <label>
-            Country Code (2 letters):
-            <input type="text" id="country" placeholder="US" maxlength="2" pattern="[A-Z]{2}" autocomplete="country">
-        </label>
-
-        <label>
-            Expiration (years):
-            <input type="number" id="years" value="1" min="1" step="1" max="30" required="required" placeholder="1" autocomplete="years">
-        </label>
-
-        <label>
-            Key Size (bits):
-            <select id="key_size" autocomplete="key-size">
-                <option value="2048">2048 bits (Recommended)</option>
-                <option value="4096">4096 bits</option>
-            </select>
-        </label>
-
-        <label>
-            Certificate Format:
-            <select id="cert_format" autocomplete="cert-format">
-                <option value="pem-bundle">PEM Bundle (.pem file)</option>
-                <option value="pem">PEM (.crt and .key files)</option>
-                <option value="pfx">PFX (.pfx file)</option>
-                <option value="p12">PKCS#12 (.p12 file)</option>
-            </select>
-        </label>
-
-        <label id="password_label" class="hidden">Password (for PFX/PKCS#12 format):
-            <input type="password" id="password" placeholder="Optional password" autocomplete="off">
-        </label>
-
-        <button type="submit">Generate Certificate</button>
-    </form>
-</main>
-
-<footer>
-    © 2025 self-signed-cert.dev
-</footer>
-</body>
+    <footer>
+      © 2025 self-signed-cert.dev
+    </footer>
+  </body>
 </html>
