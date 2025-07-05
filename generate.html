@@ -60,11 +60,12 @@
     </script>
   </head>
   <body>
-    <header>
-      <nav aria-label="Main navigation">
-        <a href="/generate.html">Home</a>
-        <a href="/faq.html">FAQ</a>
+    <header style="flex-direction: column; margin: 0; padding: 20px 0 0; background: #1c1f26;">
+      <nav aria-label="Main navigation" style="display: flex; justify-content: center; padding: 20px;">
+        <a href="/generate.html" style="color: white;">Home</a>
+        <a href="/faq.html" style="color: white;">FAQ</a>
       </nav>
+      <img class="logo" src="img/cert.svg" width="113" height="88" alt="Certificate Logo">
     </header>
 
     <main>
@@ -77,7 +78,7 @@
         </p>
       </section>
       <nav class="tabs" role="tablist" aria-label="Operations Tabs">
-        <a href="/" class="tab tab-active" role="tab" aria-label="Generate" aria-selected="true">Generate Certificate</a>
+        <a href="/generate.html" class="tab tab-active" role="tab" aria-label="Generate" aria-selected="true">Generate Certificate</a>
         <a href="view.html" class="tab" role="tab" aria-label="View" aria-selected="false">View Certificate</a>
       </nav>
       <form id="generate_form" action="/">
