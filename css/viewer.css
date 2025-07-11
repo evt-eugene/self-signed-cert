@@ -1,105 +1,26 @@
-.viewer {
-  background: var(--surface);
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.cert-section {
-            background: var(--section-bg);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--section-border);
-            transition: all 0.3s ease;
-        }
+dt {
+  margin: 0;
+}
 
-        .cert-section:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
+dd {
+  margin: 0;
+  word-break: break-word;
+}
 
-        .cert-section-header {
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--section-border);
-            font-weight: 600;
-            color: white;
-        }
-
-        .cert-section-content {
-            padding: 20px;
-        }
-
-        .cert-section-content code {
-            font-family: 'Fira Code', monospace;
-            background: rgba(0, 0, 0, 0.03);
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-size: 0.9em;
-        }
-
-        .cert-property {
-            display: flex;
-            margin-bottom: 12px;
-            align-items: flex-start;
-        }
-
-        .cert-property:last-child {
-            margin-bottom: 0;
-        }
-
-        .cert-property-label {
-            min-width: 150px;
-            font-weight: 500;
-            color: var(--text-light);
-            margin-right: 10px;
-            padding-top: 2px;
-        }
-
-        .cert-property-value {
-            flex: 1;
-            word-break: break-word;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9em;
-        }
-
-        .section-overview .cert-section-header {
-            background: var(--primary);
-        }
-
-        .section-issuer .cert-section-header {
-            background: var(--issuer-color);
-        }
-
-        .section-subject .cert-section-header {
-            background: var(--subject-color);
-        }
-
-        .section-validity .cert-section-header {
-            background: var(--validity-color);
-        }
-
-        .section-signature .cert-section-header {
-            background: var(--signature-color);
-        }
-
-        .section-key .cert-section-header {
-            background: var(--key-color);
-        }
-
-        .section-fingerprint .cert-section-header {
-            background: var(--fingerprint-color);
-        }
-
-        .multi-line-value {
-            white-space: pre-wrap;
-            max-height: 150px;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.03);
-            padding: 10px;
-            border-radius: 5px;
-        }
+.hex-content {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  max-height: 20rem;
+  overflow-y: auto;
+  background: var(--pre-background);
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+}

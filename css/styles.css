@@ -1,70 +1,67 @@
 :root {
-    --primary: #000;
-    --primary-dark: #c68e17;
-    --background: #2a2d34;
-    --disclaimer-background: #fff8e1;
-    --pre-background: #f5f5f5;
-    --surface: #fff;
-    --text: #212121;
-    --text-light: #757575;
-    --border-color: #e0e0e0;
-    --input-padding: 0.75rem;
-    --input-border: #bdbdbd;
-    --input-font-size: 1rem;
-    --main-padding-horizontal: 1.25rem;
+  --primary: #000;
+  --background: #2a2d34;
+  --pre-background: #f8f9fa;
+  --surface: #fff;
+  --text: #212121;
+  --text-light: #757575;
+  --border-color: #e0e0e0;
+  --input-padding: 0.75rem;
+  --input-border: #bdbdbd;
+  --input-font-size: 1rem;
+  --main-padding-horizontal: 1.25rem;
 }
 
 html {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    background: var(--surface);
-    color: var(--text);
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  background: var(--surface);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
 }
 
 h1 {
-    color: var(--primary);
-    text-align: center;
-    font-size: 2rem;
+  color: var(--primary);
+  text-align: center;
+  font-size: 2rem;
 }
 
 h2 {
-    color: var(--text-light);
-    font-size: 1rem;
+  color: var(--primary);
+  font-size: 1rem;
 }
 
-header, footer {
-    display: flex;
-    justify-content: center;
-    background-color: var(--background);
-    padding: 1.25rem;
-    margin: 0 0 1.25rem;
+header {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 20px 0 0;
 }
 
 header a {
-    color: var(--primary);
-    margin: 0 0.9375rem;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-header a:hover {
-    color: var(--primary-dark);
+  color: var(--primary);
+  margin: 0 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 main {
-    margin: 0 auto;
-    padding: 0 var(--main-padding-horizontal);
-    max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 var(--main-padding-horizontal);
+  max-width: 60rem;
+}
+
+section {
+  margin-bottom: 1rem;
 }
 
 .logo {
@@ -73,8 +70,14 @@ main {
 }
 
 footer {
-    padding: 1.25rem var(--main-padding-horizontal);
-    text-align: center;
-    color: var(--surface);
-    margin: 1.25rem 0 0;
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem var(--main-padding-horizontal);
+  background-color: var(--background);
+  color: var(--surface);
+  margin: 1.25rem 0 0;
+}
+
+.hidden {
+  display: none;
 }

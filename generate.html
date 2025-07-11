@@ -20,7 +20,9 @@
             defer>
     </script>
     <link href="css/styles.css" rel="stylesheet">
-    <link href="css/generator.css" rel="stylesheet">
+    <link href="css/disclaimer.css" rel="stylesheet">
+    <link href="css/tabs.css" rel="stylesheet">
+    <link href="css/form.css" rel="stylesheet">
     <script src="js/generate.js" defer></script>
     <script type="application/ld+json">
       {
@@ -76,10 +78,12 @@
             Your certificates and private keys never leave your device.</strong>
         </p>
       </section>
+
       <nav class="tabs" role="tablist" aria-label="Operations Tabs">
         <a href="/generate.html" class="tab tab-active" role="tab" aria-label="Generate" aria-selected="true">Generate Certificate</a>
-        <a href="view.html" class="tab" role="tab" aria-label="View" aria-selected="false">View Certificate</a>
+        <a href="/view.html" class="tab" role="tab" aria-label="View" aria-selected="false">View Certificate</a>
       </nav>
+
       <form id="generate_form" action="/">
         <label>
           Common Name:
