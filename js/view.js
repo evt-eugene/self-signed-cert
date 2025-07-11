@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', function () {
     };
 
     if (extension === 'pfx' || extension === 'p12') {
-      reader.readAsBinaryString(file);
+      //reader.readAsBinaryString(file);
     } else {
       reader.readAsText(file);
     }
