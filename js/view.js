@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', function () {
     };
 
     if (extension === 'pfx' || extension === 'p12') {
-      //reader.readAsBinaryString(file);
+      reader.readAsArrayBuffer(file);
     } else {
       reader.readAsText(file);
     }
@@ -70,11 +70,20 @@ window.addEventListener('DOMContentLoaded', function () {
 
   function parseCertificate(content, extension) {
     try {
-      return extension === 'pfx' || extension === 'p12' ? parsePkcs12(content) : parsePem(content);
+      return extension === 'pfx' || extension === 'p12' ? parsePkcs12(arrayBufferToBinaryString(content)) : parsePem(content);
     } catch (error) {
       alert(`Error parsing certificate: ${error.message}`);
       throw error;
     }
+  }
+
+  function arrayBufferToBinaryString(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let binaryString = '';
+    for (let i = 0; i < bytes.length; i++) {
+      binaryString += String.fromCharCode(bytes[i]);
+    }
+    return binaryString;
   }
 
   function parsePkcs12(content) {
