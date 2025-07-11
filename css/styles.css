@@ -32,7 +32,8 @@ body {
 h1 {
   color: var(--primary);
   text-align: center;
-  font-size: 2rem;
+  margin-block: 0.67em;
+  font-size: 2em;
 }
 
 h2 {
