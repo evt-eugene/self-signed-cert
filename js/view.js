@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const reader = new FileReader();
 
     reader.onload = function (e) {
-      const cert = parseCertificate(e.target.result);
+      const cert = parseCertificate(e.target.result, extension);
       displayCertDetails(cert);
     };
 
