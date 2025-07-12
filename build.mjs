@@ -1,6 +1,6 @@
 import {build} from 'esbuild';
 import {minify as minifyHTML} from 'html-minifier-terser';
-import {execSync} from 'child_process';
+import CleanCSS from 'clean-css';
 import fs from 'fs';
 import path from 'path';
 
@@ -68,13 +68,14 @@ async function minifyHTMLFilesInlineCSS() {
 
     let html = fs.readFileSync(srcPath, 'utf8');
 
-    const cssLinkRegex = /<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/gi;
+    const cssLinkRegex = /<link\b[^>]*?\bhref=["']([^"']+)["'][^>]*?\brel=["']stylesheet["'][^>]*?>/gi;
+
     let match;
     let inlinedCSS = '';
 
     while ((match = cssLinkRegex.exec(html)) !== null) {
       const cssFile = match[1].replace(/^\//, '');
-      const cssPath = path.join('src', cssFile);
+      const cssPath = path.join('', cssFile);
 
       if (!fs.existsSync(cssPath)) {
         console.warn(`CSS not found: ${cssPath}`);
