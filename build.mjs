@@ -1,6 +1,7 @@
 import {build} from 'esbuild';
 import {minify as minifyHTML} from 'html-minifier-terser';
 import CleanCSS from 'clean-css';
+import * as cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 
@@ -66,45 +67,42 @@ async function minifyHTMLFilesInlineCSS() {
       continue;
     }
 
-    let html = fs.readFileSync(srcPath, 'utf8');
+    const rawHTML = fs.readFileSync(srcPath, 'utf8');
+    const $ = cheerio.load(rawHTML);
 
-    const cssLinkRegex = /<link\b[^>]*?\bhref=["']([^"']+)["'][^>]*?\brel=["']stylesheet["'][^>]*?>/gi;
+    let combinedCSS = '';
+    $('link[rel="stylesheet"]').each((_, el) => {
+      const href = $(el).attr('href');
+      if (!href) return;
 
-    let match;
-    let inlinedCSS = '';
-
-    while ((match = cssLinkRegex.exec(html)) !== null) {
-      const cssFile = match[1].replace(/^\//, '');
-      const cssPath = path.join('', cssFile);
-
+      const cssPath = path.join('', href.replace(/^\//, ''));
       if (!fs.existsSync(cssPath)) {
-        console.warn(`CSS not found: ${cssPath}`);
-        continue;
+        console.warn(`${cssPath} is not found`);
+        return;
       }
 
       const rawCSS = fs.readFileSync(cssPath, 'utf8');
       const minifiedCSS = new CleanCSS().minify(rawCSS).styles;
-      inlinedCSS += `\n${minifiedCSS}`;
+      combinedCSS += minifiedCSS;
+      $(el).remove();
+    });
+
+    if (combinedCSS.trim()) {
+      $('head').append(`<style>${combinedCSS}</style>`);
     }
 
-    html = html.replace(cssLinkRegex, '');
-    if (inlinedCSS.trim()) {
-      html = html.replace(/<\/head>/i, `  <style>${inlinedCSS}</style>\n</head>`);
-    }
-
-    html = html.replace(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi, (match, jsonText) => {
-        try {
-          const parsed = JSON.parse(jsonText);
-          const minifiedJSON = JSON.stringify(parsed);
-          return `<script type="application/ld+json">${minifiedJSON}</script>`;
-        } catch (e) {
-          console.warn('JSON-LD parsing error. Left unchanged...');
-          return match;
-        }
+    $('script[type="application/ld+json"]').each((_, el) => {
+      const rawJson = $(el).html();
+      try {
+        const parsed = JSON.parse(rawJson);
+        const minifiedJson = JSON.stringify(parsed);
+        $(el).text(minifiedJson);
+      } catch (e) {
+        console.warn(`JSON-LD parsing error in ${file}. Left unchanged...`);
       }
-    );
+    });
 
-    const minifiedHTML = await minifyHTML(html, {
+    const finalHTML = await minifyHTML($.html(), {
       collapseWhitespace: true,
       removeComments: true,
       removeRedundantAttributes: true,
@@ -115,7 +113,7 @@ async function minifyHTMLFilesInlineCSS() {
       sortClassName: true
     });
 
-    fs.writeFileSync(destPath, minifiedHTML, 'utf8');
+    fs.writeFileSync(destPath, finalHTML, 'utf8');
   }
 }
 

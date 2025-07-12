@@ -26,6 +26,7 @@ input, select, button {
   font-size: 1rem;
   background-color: var(--surface);
   color: var(--text);
+  width: 100%;
 }
 
 input[type='file'] {
