@@ -92,6 +92,18 @@ async function minifyHTMLFilesInlineCSS() {
       html = html.replace(/<\/head>/i, `  <style>${inlinedCSS}</style>\n</head>`);
     }
 
+    html = html.replace(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi, (match, jsonText) => {
+        try {
+          const parsed = JSON.parse(jsonText);
+          const minifiedJSON = JSON.stringify(parsed);
+          return `<script type="application/ld+json">${minifiedJSON}</script>`;
+        } catch (e) {
+          console.warn('JSON-LD parsing error. Left unchanged...');
+          return match;
+        }
+      }
+    );
+
     const minifiedHTML = await minifyHTML(html, {
       collapseWhitespace: true,
       removeComments: true,
