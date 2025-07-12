@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/WebSite">
+  <head>
+    <title>SSL Certificate Generator & Viewer</title>
+    <base href="/">
+    <link rel="canonical" href="https://self-signed-cert.dev/view.html">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed.">
+    <meta name="keywords" content="SSL, Self-Signed, Certificate, Generator, Viewer, Online, Secure, HTTPS, OpenSSL">
+    <meta name="robots" content="index, follow">
+    <meta itemprop="name" content="SSL Self-Signed Certificates Generator & Viewer">
+    <meta itemprop="url" content="https://self-signed-cert.dev/">
+    <meta itemprop="description"
+          content="Online tool for self-signed SSL certificates generating and viewing. Fast, secure and free. Works on any platform.">
+    <script src="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js"
+            integrity="sha256-3Gf9EyQnrZbJZmyESzlWVBPEDdsfLQY8U1Evv204ff0="
+            crossorigin="anonymous"
+            defer>
+    </script>
+    <link href="/src/favicon.svg" rel="icon" type="image/svg+xml">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/disclaimer.css" rel="stylesheet">
+    <link href="css/tabs.css" rel="stylesheet">
+    <link href="css/form.css" rel="stylesheet">
+    <link href="css/view.css" rel="stylesheet">
+    <script src="js/view.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "SSL Certificate Generator & Viewer",
+            "url": "https://self-signed-cert.dev/",
+            "description": "Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed."
+          },
+          {
+            "@type": "WebApplication",
+            "name": "SSL Certificate Generator",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "All",
+            "browserRequirements": "Requires JavaScript",
+            "url": "https://self-signed-cert.dev/",
+            "description": "Web-based tool to generate and view self-signed SSL certificates without OpenSSL. Fully offline and secure.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "Organization",
+            "name": "self-signed-cert.dev",
+            "url": "https://self-signed-cert.dev/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://self-signed-cert.dev/cert.svg"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header style="flex-direction: column; margin: 0; padding: 20px 0 0; background: #fff;">
+      <img class="logo" src="img/cert.svg" width="113" height="88" alt="Certificate Logo">
+      <nav aria-label="Main navigation" style="display: flex; justify-content: center; padding: 20px;">
+        <a href="/">Home</a>
+        <a href="/faq.html">FAQ</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h1 itemprop="headline">SSL Certificate Generator & Viewer</h1>
+        <p class="disclaimer" role="alert">
+          <strong>All operations on this page are performed entirely in your browser. No data is sent to any server.
+            Your certificates and private keys never leave your device.</strong>
+        </p>
+      </section>
+
+      <nav class="tabs" role="tablist" aria-label="Operations Tabs">
+        <a href="/" class="tab" role="tab" aria-label="Generate" aria-selected="false">Generate Certificate</a>
+        <a href="/src/view.html" class="tab tab-active" role="tab" aria-label="View" aria-selected="true">View Certificate</a>
+      </nav>
+
+      <form action="/">
+        <label>
+          Certificate file:
+          <input type="file" id="cert_file" accept=".pem,.crt,.key,.p7b,.pfx,.p12">
+        </label>
+        <section id="cert_details" class="hidden">
+          <article>
+            <h2>Certificate Overview</h2>
+            <dl>
+              <dt>Serial Number</dt>
+              <dd id="cert_serial"></dd>
+              <dt>Version</dt>
+              <dd id="cert_version"></dd>
+            </dl>
+          </article>
+
+          <article>
+            <h2>Issuer Information</h2>
+            <dl>
+              <dt>Common Name</dt>
+              <dd id="issuer_common_name"></dd>
+              <dt>Organization</dt>
+              <dd id="issuer_organization"></dd>
+              <dt>Organizational Unit</dt>
+              <dd id="issuer_organizational_unit"></dd>
+              <dt>Locality</dt>
+              <dd id="issuer_locality"></dd>
+              <dt>State/Province</dt>
+              <dd id="issuer_state"></dd>
+              <dt>Country</dt>
+              <dd id="issuer_country"></dd>
+              <dt>Email Address</dt>
+              <dd id="issuer_email"></dd>
+            </dl>
+          </article>
+
+          <article>
+            <h2>Subject Information</h2>
+            <dl>
+              <dt>Common Name</dt>
+              <dd id="subject_common_name"></dd>
+              <dt>Organization</dt>
+              <dd id="subject_organization"></dd>
+              <dt>Organizational Unit</dt>
+              <dd id="subject_organizational_unit"></dd>
+              <dt>Locality</dt>
+              <dd id="subject_locality"></dd>
+              <dt>State/Province</dt>
+              <dd id="subject_state"></dd>
+              <dt>Country</dt>
+              <dd id="subject_country"></dd>
+              <dt>Email Address</dt>
+              <dd id="subject_email"></dd>
+            </dl>
+          </article>
+
+          <article>
+            <h2>Validity Period</h2>
+            <dl>
+              <dt>Not Valid Before</dt>
+              <dd id="cert_not_before"></dd>
+              <dt>Not Valid After</dt>
+              <dd id="cert_not_after"></dd>
+            </dl>
+          </article>
+
+          <article>
+            <h2>Signature Information</h2>
+            <dl>
+              <dt>Signature Algorithm</dt>
+              <dd id="cert_sig_alg"></dd>
+              <dt>Signature Algorithm Security Level</dt>
+              <dd id="cert_sig_alg_security_level"></dd>
+              <dt>Parameters</dt>
+              <dd id="cert_sig_params"></dd>
+              <dt>Signature (hex)</dt>
+              <dd id="cert_signature" class="hex-content"></dd>
+            </dl>
+          </article>
+
+          <article>
+            <h2>Public Key Information</h2>
+            <dl>
+              <dt>Algorithm</dt>
+              <dd id="cert_key_alg"></dd>
+              <dt>Key Size</dt>
+              <dd id="cert_key_size"></dd>
+              <dt>Exponent</dt>
+              <dd id="cert_key_exponent"></dd>
+              <dt>Modulus</dt>
+              <dd id="cert_key_modulus" class="hex-content"></dd>
+              <dt>Public Key</dt>
+              <dd id="cert_public_key" class="hex-content"></dd>
+              <dt>Key Usage</dt>
+              <dd id="cert_key_usage"></dd>
+            </dl>
+          </article>
+
+          <article>
+            <h2>Certificate Fingerprints</h2>
+            <dl>
+              <dt>SHA-1</dt>
+              <dd id="cert_sha1"></dd>
+              <dt>SHA-256</dt>
+              <dd id="cert_sha256"></dd>
+            </dl>
+          </article>
+        </section>
+      </form>
+    </main>
+
+    <footer>
+      © 2025 self-signed-cert.dev
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+dt {
+  margin: 0;
+}
+
+dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.hex-content {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  max-height: 20rem;
+  overflow-y: auto;
+  background: var(--pre-background);
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+}

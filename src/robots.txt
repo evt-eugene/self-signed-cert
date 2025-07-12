@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://self-signed-cert.dev/sitemap.xml
