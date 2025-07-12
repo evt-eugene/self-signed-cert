@@ -14,6 +14,7 @@
   border: 1px solid var(--border-color);
   border-bottom: none;
   margin-bottom: 0;
+  background-color: white;
 }
 
 .tab + .tab {
@@ -23,7 +24,6 @@
 .tab-active {
   border-bottom: 1px solid var(--surface);
   font-weight: bold;
-  background-color: var(--surface);
   color: var(--text);
   margin-bottom: -1px;
 }
