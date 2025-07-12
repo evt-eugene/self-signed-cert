@@ -13,33 +13,11 @@ const staticFiles = [
 ];
 
 const htmlFiles = [
-  {file: 'index.html', css: 'css/styles.index.min.css'},
-  {file: 'generate.html', css: 'css/styles.generate.min.css'},
-  {file: 'view.html', css: 'css/styles.view.min.css'},
-  {file: 'faq.html', css: 'css/styles.faq.min.css'}
+  'index.html',
+  'generate.html',
+  'view.html',
+  'faq.html'
 ];
-
-const cssGroups = {
-  index: [
-    'src/css/styles.css'
-  ],
-  generate: [
-    'src/css/styles.css',
-    'src/css/disclaimer.css',
-    'src/css/tabs.css',
-    'src/css/form.css'
-  ],
-  view: [
-    'src/css/styles.css',
-    'src/css/disclaimer.css',
-    'src/css/tabs.css',
-    'src/css/form.css',
-    'src/css/view.css',
-  ],
-  faq: [
-    'src/css/styles.css',
-  ]
-};
 
 function clearDir(dir) {
   if (!fs.existsSync(dir)) {
@@ -61,11 +39,11 @@ function copyStaticFiles() {
   console.log('Copy static files');
 
   for (const relPath of staticFiles) {
-    const srcPath = path.join('src', relPath);
+    const srcPath = path.join('', relPath);
     const destPath = path.join('docs', relPath);
 
     if (!fs.existsSync(srcPath)) {
-      console.warn(`${filename} is not found`);
+      console.warn(`${srcPath} is not found`);
       continue;
     }
 
@@ -76,57 +54,62 @@ function copyStaticFiles() {
   }
 }
 
-async function minifyHTMLFiles() {
-  console.log('Minifying HTML');
+async function minifyHTMLFilesInlineCSS() {
+  console.log('Minify HTML');
 
-  for (const {file, css} of htmlFiles) {
-    const srcPath = path.join('src', file);
+  for (const file of htmlFiles) {
+    const srcPath = path.join('', file);
     const destPath = path.join('docs', file);
 
     if (!fs.existsSync(srcPath)) {
-      console.warn(`${file} is not found`);
+      console.warn(`${srcPath} not found`);
       continue;
     }
 
     let html = fs.readFileSync(srcPath, 'utf8');
-    html = html.replace(/<link\s+[^>]*rel=["']stylesheet["'][^>]*>/gi, '');
 
-    const cssTag = `<link rel="stylesheet" href="${css}">`;
-    html = html.replace(/<\/head>/i, `  ${cssTag}\n</head>`);
+    const cssLinkRegex = /<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/gi;
+    let match;
+    let inlinedCSS = '';
 
-    const minified = await minifyHTML(html, {
+    while ((match = cssLinkRegex.exec(html)) !== null) {
+      const cssFile = match[1].replace(/^\//, '');
+      const cssPath = path.join('src', cssFile);
+
+      if (!fs.existsSync(cssPath)) {
+        console.warn(`CSS not found: ${cssPath}`);
+        continue;
+      }
+
+      const rawCSS = fs.readFileSync(cssPath, 'utf8');
+      const minifiedCSS = new CleanCSS().minify(rawCSS).styles;
+      inlinedCSS += `\n${minifiedCSS}`;
+    }
+
+    html = html.replace(cssLinkRegex, '');
+    if (inlinedCSS.trim()) {
+      html = html.replace(/<\/head>/i, `  <style>${inlinedCSS}</style>\n</head>`);
+    }
+
+    const minifiedHTML = await minifyHTML(html, {
       collapseWhitespace: true,
       removeComments: true,
       removeRedundantAttributes: true,
       removeEmptyAttributes: true,
-      minifyCSS: true,
+      minifyCSS: false,
       minifyJS: true,
       sortAttributes: true,
       sortClassName: true
     });
 
-    fs.writeFileSync(destPath, minified, 'utf8');
-  }
-}
-
-function mergeAndMinifyCSSFiles() {
-  console.log('Minifying CSS...');
-
-  for (const [name, files] of Object.entries(cssGroups)) {
-    const concatenated = files
-      .map(path => fs.readFileSync(path, 'utf8'))
-      .join('\n');
-
-    fs.writeFileSync(`docs/styles.${name}.css`, concatenated);
-    execSync(`npx cleancss -o docs/css/styles.${name}.min.css docs/styles.${name}.css`);
-    fs.unlinkSync(`docs/styles.${name}.css`);
+    fs.writeFileSync(destPath, minifiedHTML, 'utf8');
   }
 }
 
 async function minifyJSFiles() {
   console.log('Minifying JS...');
 
-  const inputDir = 'src/js';
+  const inputDir = 'js';
   const outputDir = 'docs/js';
 
   ensureDir(outputDir);
@@ -152,7 +135,6 @@ async function minifyJSFiles() {
   ensureDir('docs');
 
   copyStaticFiles();
-  mergeAndMinifyCSSFiles();
+  await minifyHTMLFilesInlineCSS();
   await minifyJSFiles();
-  await minifyHTMLFiles();
 })();
