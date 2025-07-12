@@ -28,6 +28,15 @@ input, select, button {
   color: var(--text);
 }
 
+input[type='file'] {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 button {
   background-color: var(--primary);
   color: var(--surface);
