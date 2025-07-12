@@ -1,0 +1,34 @@
+<!DOCTYPE html><html itemscope itemtype="https://schema.org/WebSite" lang="en"><head><title>SSL Certificate Generator & Viewer</title><base href="/"><link href="https://self-signed-cert.dev/view.html" rel="canonical"><link href="https://cdn.jsdelivr.net" rel="preconnect"><meta charset="UTF-8"><meta content="width=device-width,initial-scale=1" name="viewport"><meta content="Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed." name="description"><meta content="SSL, Self-Signed, Certificate, Generator, Viewer, Online, Secure, HTTPS, OpenSSL" name="keywords"><meta content="index, follow" name="robots"><meta content="SSL Self-Signed Certificates Generator & Viewer" itemprop="name"><meta content="https://self-signed-cert.dev/" itemprop="url"><meta content="Online tool for self-signed SSL certificates generating and viewing. Fast, secure and free. Works on any platform." itemprop="description"><script defer="defer" src="https://cdn.jsdelivr.net/npm/node-forge@1.3.1/dist/forge.min.js" crossorigin="anonymous" integrity="sha256-3Gf9EyQnrZbJZmyESzlWVBPEDdsfLQY8U1Evv204ff0="></script><link href="/src/favicon.svg" rel="icon" type="image/svg+xml"><script defer="defer" src="js/view.js"></script><script type="application/ld+json">{
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "SSL Certificate Generator & Viewer",
+            "url": "https://self-signed-cert.dev/",
+            "description": "Generate and view self-signed SSL certificates locally and offline. No OpenSSL needed."
+          },
+          {
+            "@type": "WebApplication",
+            "name": "SSL Certificate Generator",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "All",
+            "browserRequirements": "Requires JavaScript",
+            "url": "https://self-signed-cert.dev/",
+            "description": "Web-based tool to generate and view self-signed SSL certificates without OpenSSL. Fully offline and secure.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "Organization",
+            "name": "self-signed-cert.dev",
+            "url": "https://self-signed-cert.dev/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://self-signed-cert.dev/cert.svg"
+            }
+          }
+        ]
+      }</script><link href="css/styles.view.min.css" rel="stylesheet"></head><body><header style="flex-direction:column;margin:0;padding:20px 0 0;background:#fff"><img alt="Certificate Logo" class="logo" height="88" src="img/cert.svg" width="113"><nav aria-label="Main navigation" style="display:flex;justify-content:center;padding:20px"><a href="/" style="color:#000">Home</a> <a href="/src/faq.html" style="color:#000">FAQ</a></nav></header><main><section><h1 itemprop="headline">SSL Certificate Generator & Viewer</h1><p class="disclaimer" role="alert"><strong>All operations on this page are performed entirely in your browser. No data is sent to any server. Your certificates and private keys never leave your device.</strong></p></section><nav aria-label="Operations Tabs" class="tabs" role="tablist"><a href="/" aria-label="Generate" aria-selected="false" class="tab" role="tab">Generate Certificate</a> <a href="/src/view.html" aria-label="View" aria-selected="true" class="tab tab-active" role="tab">View Certificate</a></nav><form action="/"><label>Certificate file: <input accept=".pem,.crt,.key,.p7b,.pfx,.p12" id="cert_file" type="file"></label><section class="hidden" id="cert_details"><article><h2>Certificate Overview</h2><dl><dt>Serial Number</dt><dd id="cert_serial"></dd><dt>Version</dt><dd id="cert_version"></dd></dl></article><article><h2>Issuer Information</h2><dl><dt>Common Name</dt><dd id="issuer_common_name"></dd><dt>Organization</dt><dd id="issuer_organization"></dd><dt>Organizational Unit</dt><dd id="issuer_organizational_unit"></dd><dt>Locality</dt><dd id="issuer_locality"></dd><dt>State/Province</dt><dd id="issuer_state"></dd><dt>Country</dt><dd id="issuer_country"></dd><dt>Email Address</dt><dd id="issuer_email"></dd></dl></article><article><h2>Subject Information</h2><dl><dt>Common Name</dt><dd id="subject_common_name"></dd><dt>Organization</dt><dd id="subject_organization"></dd><dt>Organizational Unit</dt><dd id="subject_organizational_unit"></dd><dt>Locality</dt><dd id="subject_locality"></dd><dt>State/Province</dt><dd id="subject_state"></dd><dt>Country</dt><dd id="subject_country"></dd><dt>Email Address</dt><dd id="subject_email"></dd></dl></article><article><h2>Validity Period</h2><dl><dt>Not Valid Before</dt><dd id="cert_not_before"></dd><dt>Not Valid After</dt><dd id="cert_not_after"></dd></dl></article><article><h2>Signature Information</h2><dl><dt>Signature Algorithm</dt><dd id="cert_sig_alg"></dd><dt>Signature Algorithm Security Level</dt><dd id="cert_sig_alg_security_level"></dd><dt>Parameters</dt><dd id="cert_sig_params"></dd><dt>Signature (hex)</dt><dd id="cert_signature" class="hex-content"></dd></dl></article><article><h2>Public Key Information</h2><dl><dt>Algorithm</dt><dd id="cert_key_alg"></dd><dt>Key Size</dt><dd id="cert_key_size"></dd><dt>Exponent</dt><dd id="cert_key_exponent"></dd><dt>Modulus</dt><dd id="cert_key_modulus" class="hex-content"></dd><dt>Public Key</dt><dd id="cert_public_key" class="hex-content"></dd><dt>Key Usage</dt><dd id="cert_key_usage"></dd></dl></article><article><h2>Certificate Fingerprints</h2><dl><dt>SHA-1</dt><dd id="cert_sha1"></dd><dt>SHA-256</dt><dd id="cert_sha256"></dd></dl></article></section></form></main><footer>© 2025 self-signed-cert.dev</footer></body></html>
