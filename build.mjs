@@ -15,7 +15,8 @@ const staticFiles = [
 const htmlFiles = [
   {file: 'index.html', css: 'css/styles.index.min.css'},
   {file: 'generate.html', css: 'css/styles.generate.min.css'},
-  {file: 'view.html', css: 'css/styles.view.min.css'}
+  {file: 'view.html', css: 'css/styles.view.min.css'},
+  {file: 'faq.html', css: 'css/styles.faq.min.css'}
 ];
 
 const cssGroups = {
@@ -34,6 +35,9 @@ const cssGroups = {
     'src/css/tabs.css',
     'src/css/form.css',
     'src/css/view.css',
+  ],
+  faq: [
+    'src/css/styles.css',
   ]
 };
 
