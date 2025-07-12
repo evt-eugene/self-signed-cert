@@ -1,6 +1,7 @@
 import {build} from 'esbuild';
 import {minify as minifyHTML} from 'html-minifier-terser';
 import CleanCSS from 'clean-css';
+import {optimize as optimizeSVG} from 'svgo';
 import * as cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
@@ -9,7 +10,6 @@ const staticFiles = [
   'CNAME',
   'robots.txt',
   'sitemap.xml',
-  'img/cert.svg',
   'favicon.svg'
 ];
 
@@ -37,7 +37,7 @@ function ensureDir(dir) {
 }
 
 function copyStaticFiles() {
-  console.log('Copy static files');
+  console.log('Copying static files');
 
   for (const relPath of staticFiles) {
     const srcPath = path.join('', relPath);
@@ -56,7 +56,7 @@ function copyStaticFiles() {
 }
 
 async function minifyHTMLFilesInlineCSS() {
-  console.log('Minify HTML');
+  console.log('Minifying HTML');
 
   for (const file of htmlFiles) {
     const srcPath = path.join('', file);
@@ -117,6 +117,51 @@ async function minifyHTMLFilesInlineCSS() {
   }
 }
 
+async function minifySVGs() {
+  console.log('Minifying SVGs...');
+
+  const srcDir = path.join('', 'img');
+  const destDir = path.join('docs', 'img');
+
+  if (!fs.existsSync(srcDir)) {
+    console.warn(`${srcDir} is not found`);
+    return;
+  }
+
+  fs.mkdirSync(destDir, {recursive: true});
+
+  const files = fs.readdirSync(srcDir).filter(f => f.endsWith('.svg'));
+
+  for (const file of files) {
+    const inputPath = path.join(srcDir, file);
+    const outputPath = path.join(destDir, file);
+
+    const rawSVG = fs.readFileSync(inputPath, 'utf8');
+    const result = optimizeSVG(rawSVG, {
+      path: inputPath,
+      multipass: true
+    });
+
+    fs.writeFileSync(outputPath, result.data, 'utf8');
+  }
+}
+
+async function minifyFavicon() {
+  console.log('Minifying Favicon...');
+
+  const faviconSVGPath = path.join('', 'favicon.svg');
+  const faviconSVGDest = path.join('docs', 'favicon.svg');
+
+  if (!fs.existsSync(faviconSVGPath)) {
+    console.warn(`${faviconSVGPath} is not found`);
+    return;
+  }
+
+  const rawFaviconSVG = fs.readFileSync(faviconSVGPath, 'utf8');
+  const optimizedFavicon = optimizeSVG(rawFaviconSVG, {path: faviconSVGPath, multipass: true});
+  fs.writeFileSync(faviconSVGDest, optimizedFavicon.data, 'utf8');
+}
+
 async function minifyJSFiles() {
   console.log('Minifying JS...');
 
@@ -146,6 +191,8 @@ async function minifyJSFiles() {
   ensureDir('docs');
 
   copyStaticFiles();
+  await minifySVGs();
+  await minifyFavicon();
   await minifyHTMLFilesInlineCSS();
   await minifyJSFiles();
 })();
