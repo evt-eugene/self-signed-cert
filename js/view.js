@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('DOMContentLoaded', () => {
 
   const SUPPORTED_EXTENSIONS = ['pem', 'crt', 'key', 'p7b', 'pfx', 'p12'];
   const SIGNATURE_ALGORITHMS = {
@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', function () {
     '1.3.132.0.10': 'secp256k1'
   };
 
-  document.getElementById('cert_file').addEventListener('change', function (e) {
+  document.getElementById('cert_file').addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) {
       return;
@@ -51,12 +51,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
     const reader = new FileReader();
 
-    reader.onload = function (e) {
+    reader.onload = (e) => {
       const cert = parseCertificate(e.target.result, extension);
       displayCertDetails(cert);
     };
 
-    reader.onerror = function () {
+    reader.onerror = () => {
       console.error('File reading error', e);
       alert('Error reading file. Please try again.');
     };
@@ -68,25 +68,25 @@ window.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  function parseCertificate(content, extension) {
+  const parseCertificate = (content, extension) => {
     try {
       return extension === 'pfx' || extension === 'p12' ? parsePkcs12(arrayBufferToBinaryString(content)) : parsePem(content);
     } catch (error) {
       alert(`Error parsing certificate: ${error.message}`);
       throw error;
     }
-  }
+  };
 
-  function arrayBufferToBinaryString(buffer) {
+  const arrayBufferToBinaryString = (buffer) => {
     const bytes = new Uint8Array(buffer);
     let binaryString = '';
     for (let i = 0; i < bytes.length; i++) {
       binaryString += String.fromCharCode(bytes[i]);
     }
     return binaryString;
-  }
+  };
 
-  function parsePkcs12(content) {
+  const parsePkcs12 = (content) => {
     const password = prompt("Enter password for the PFX/PKCS#12 file (leave empty if none):", "");
     const asn1 = forge.asn1.fromDer(forge.util.createBuffer(content));
     const p12 = forge.pkcs12.pkcs12FromAsn1(asn1, password || '');
@@ -99,18 +99,18 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     return bags[0].cert;
-  }
+  };
 
-  function parsePem(content) {
+  const parsePem = (content) => {
     try {
       return forge.pki.certificateFromPem(content);
     } catch (e) {
       const message = content.includes('BEGIN PRIVATE KEY') ? 'This appears to be a private key file. Please provide a certificate file instead.' : 'Invalid certificate format';
       throw new Error(message);
     }
-  }
+  };
 
-  function displayCertDetails(cert) {
+  const displayCertDetails = (cert) => {
     document.getElementById('cert_details').classList.remove('hidden');
 
     document.getElementById('cert_serial').textContent = cert.serialNumber;
@@ -159,42 +159,28 @@ window.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('cert_sha1').textContent = formatFingerprint(sha1);
     document.getElementById('cert_sha256').textContent = formatFingerprint(sha256);
-  }
+  };
 
-  function findCommonName(attributes) {
-    return findAttributeValue(attributes, ['commonName', 'CN']);
-  }
+  const findCommonName = (attributes) => findAttributeValue(attributes, ['commonName', 'CN']);
 
-  function findOrganization(attributes) {
-    return findAttributeValue(attributes, ['organizationName', 'O']);
-  }
+  const findOrganization = (attributes) => findAttributeValue(attributes, ['organizationName', 'O']);
 
-  function findOrganizationalUnit(attributes) {
-    return findAttributeValue(attributes, ['organizationalUnitName', 'OU']);
-  }
+  const findOrganizationalUnit = (attributes) => findAttributeValue(attributes, ['organizationalUnitName', 'OU']);
 
-  function findLocality(attributes) {
-    return findAttributeValue(attributes, ['localityName', 'L']);
-  }
+  const findLocality = (attributes) => findAttributeValue(attributes, ['localityName', 'L']);
 
-  function findState(attributes) {
-    return findAttributeValue(attributes, ['stateOrProvinceName', 'ST']);
-  }
+  const findState = (attributes) => findAttributeValue(attributes, ['stateOrProvinceName', 'ST']);
 
-  function findCountry(attributes) {
-    return findAttributeValue(attributes, ['countryName', 'C']);
-  }
+  const findCountry = (attributes) => findAttributeValue(attributes, ['countryName', 'C']);
 
-  function findEmail(attributes) {
-    return findAttributeValue(attributes, ['emailAddress', 'E']);
-  }
+  const findEmail = (attributes) => findAttributeValue(attributes, ['emailAddress', 'E']);
 
-  function findAttributeValue(attributes, attributeNames) {
+  const findAttributeValue = (attributes, attributeNames) => {
     const foundAttr = attributes.find(attr => attributeNames.includes(attr.name) || attributeNames.includes(attr.shortName));
     return foundAttr ? foundAttr.value : 'Not specified';
-  }
+  };
 
-  function keyUsage(extensions) {
+  const keyUsage = (extensions) => {
     const keyUsageExt = extensions.find(ext => ext.name === 'keyUsage');
     if (!keyUsageExt) {
       return 'Not specified';
@@ -208,19 +194,19 @@ window.addEventListener('DOMContentLoaded', function () {
       .join(', ');
 
     return usages || 'Not specified';
-  }
+  };
 
-  function getSignatureAlgorithmName(oid) {
+  const getSignatureAlgorithmName = (oid) => {
     const algo = SIGNATURE_ALGORITHMS[oid];
     return algo ? algo.name : `Unknown algorithm (${oid || '-'})`;
-  }
+  };
 
-  function getSignatureAlgorithmSecurityLevel(oid) {
+  const getSignatureAlgorithmSecurityLevel = (oid) => {
     const algo = SIGNATURE_ALGORITHMS[oid];
     return algo ? algo.securityLevel : 'Unknown';
-  }
+  };
 
-  function getSignatureAlgorithmParameters(oid, parameters) {
+  const getSignatureAlgorithmParameters = (oid, parameters) => {
     if (!parameters) {
       return 'None (NULL)';
     }
@@ -234,9 +220,9 @@ window.addEventListener('DOMContentLoaded', function () {
       return formatEcdsaParameters(parameters);
     }
     return formatGenericParameters(parameters);
-  }
+  };
 
-  function formatRsaPssParameters(params) {
+  const formatRsaPssParameters = (params) => {
     const lines = ['RSA-PSS Parameters:'];
 
     if (params.hashAlgorithm) {
@@ -254,9 +240,9 @@ window.addEventListener('DOMContentLoaded', function () {
       lines.push(`  Trailer Field: ${params.trailerField}`);
     }
     return lines.join('\n');
-  }
+  };
 
-  function formatEcdsaParameters(params) {
+  const formatEcdsaParameters = (params) => {
     if (!params) {
       return 'None';
     }
@@ -267,13 +253,13 @@ window.addEventListener('DOMContentLoaded', function () {
       return `Curve OID: ${params.curve}`;
     }
     return formatGenericParameters(params);
-  }
+  };
 
-  function getCurveName(oid) {
+  const getCurveName = (oid) => {
     return CURVES[oid] || `Unknown curve`;
-  }
+  };
 
-  function formatGenericParameters(params) {
+  const formatGenericParameters = (params) => {
     if (params === null || params === undefined) {
       return 'None (NULL)';
     }
@@ -302,9 +288,9 @@ window.addEventListener('DOMContentLoaded', function () {
       return 'None';
     }
     return `Unknown type: ${typeof params}`;
-  }
+  };
 
-  function formatAsn1Parameter(asn1Obj) {
+  const formatAsn1Parameter = (asn1Obj) => {
     const tagTypes = {
       1: 'BOOLEAN',
       2: 'INTEGER',
@@ -335,9 +321,9 @@ window.addEventListener('DOMContentLoaded', function () {
       return `OCTET STRING: ${hex}`;
     }
     return `${tagType}: ${asn1Obj.value || '[Complex Structure]'}`;
-  }
+  };
 
-  function formatSingleParameter(param) {
+  const formatSingleParameter = (param) => {
     if (param === null || param === undefined) return 'null';
     if (typeof param === 'string') return `"${param}"`;
     if (typeof param === 'number') return param.toString();
@@ -349,21 +335,21 @@ window.addEventListener('DOMContentLoaded', function () {
       return JSON.stringify(param);
     }
     return String(param);
-  }
+  };
 
-  function formatDate(date) {
+  const formatDate = (date) => {
     return date.toUTCString();
-  }
+  };
 
-  function formatHex(hex, lineLength = 32) {
+  const formatHex = (hex, lineLength = 32) => {
     let result = '';
     for (let i = 0; i < hex.length; i += lineLength) {
       result += hex.substring(i, i + lineLength) + '\n';
     }
     return result.trim();
-  }
+  };
 
-  function formatFingerprint(fingerprint) {
+  const formatFingerprint = (fingerprint) => {
     return fingerprint.match(/.{2}/g).join(':');
-  }
+  };
 });
