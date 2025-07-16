@@ -6,9 +6,8 @@
   color: var(--primary);
   background-color: var(--disclaimer-background);
   text-align: center;
-  border: 1px solid var(--border-color);
+  border: var(--border) solid var(--border-color);
   line-height: 1.5;
-  padding: 1.25rem;
+  padding: 1.5rem;
   box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.05);
-  margin: 0 auto;
 }

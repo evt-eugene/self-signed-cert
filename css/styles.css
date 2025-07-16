@@ -1,62 +1,44 @@
 :root {
   --primary: #000;
-  --background: #2a2d34;
-  --pre-background: #f8f9fa;
-  --surface: #fbfff5;
-  --text: #212121;
-  --text-light: #757575;
+  --background: #fff;
+  --border: 1px;
   --border-color: #e0e0e0;
-  --input-padding: 0.75rem;
   --input-border: #bdbdbd;
-  --input-font-size: 1rem;
-  --main-padding-horizontal: 1.25rem;
-}
-
-html {
-  font-size: 100%;
-  font-weight: 400;
-  scroll-behavior: smooth
 }
 
 * {
   box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale
+}
+
+html {
+  font-size: 16px;
+  height: 100%;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
 }
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  background: var(--surface);
-  color: var(--text);
   font-size: 1rem;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
+  min-height: 100%;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6 {
   color: var(--primary);
   text-align: center;
-  margin-block: 0.67em;
-  font-size: 2em;
-  line-height: 1.25;
-  font-weight: 700;
-}
-
-h2 {
-  color: var(--primary);
-  font-size: 1rem;
-}
-
-h2, h3, h4, h5, h6 {
   line-height: 1.25;
   font-weight: 600;
-  margin-bottom: .9375rem
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 h1 {
@@ -81,45 +63,57 @@ h5 {
 
 h6 {
   font-size: 1rem;
-  line-height: 1
+  line-height: 1;
 }
 
 header {
   display: flex;
   flex-direction: column;
   margin: 0;
-  padding: 20px 0 0;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
-header a {
+header > .logo {
+  display: block;
+  margin: 0 auto;
+}
+
+header > nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+header > nav > a {
   color: var(--primary);
-  margin: 0 0.9375rem;
+  margin: 1rem;
   font-weight: 600;
   text-decoration: none;
+}
+
+header, main, footer {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 main {
   flex: 1;
   margin: 0 auto;
-  padding: 0 var(--main-padding-horizontal);
-  max-width: 60rem;
-}
-
-section {
-  margin-bottom: 1rem;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 80rem;
 }
 
 footer {
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  padding: 1.25rem var(--main-padding-horizontal);
-  background-color: var(--background);
-  color: var(--surface);
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  background-color: var(--primary);
+  color: var(--background);
   margin: 1.25rem 0 0;
 }
 

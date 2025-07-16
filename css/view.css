@@ -5,22 +5,18 @@ dl {
   margin-bottom: 1.5rem;
 }
 
-dt {
+dt, dd {
   margin: 0;
 }
 
 dd {
-  margin: 0;
-  word-break: break-word;
+  word-break: break-all;
 }
 
 .hex-content {
   font-family: 'Courier New', monospace;
   font-size: 0.8rem;
   line-height: 1.4;
-  max-height: 20rem;
-  overflow-y: auto;
-  background: var(--pre-background);
   padding: 0.75rem;
-  border: 1px solid var(--border-color);
+  border: var(--border) solid var(--border-color);
 }

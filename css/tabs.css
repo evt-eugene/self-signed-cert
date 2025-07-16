@@ -1,20 +1,21 @@
 .tabs {
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  margin-top: 1rem;
-  border-bottom: 1px solid var(--border-color);
+  margin: 1rem 0 0;
+  border-bottom: var(--border) solid var(--border-color);
 }
 
 .tab {
-  padding: 1.4rem;
+  padding: 1.5rem;
   font-weight: 600;
   text-align: center;
   text-decoration: none;
   color: var(--primary);
-  border: 1px solid var(--border-color);
-  border-bottom: none;
+  border: var(--border) solid var(--border-color);
+  border-bottom: 0;
   margin-bottom: 0;
-  background-color: white;
+  background-color: var(--background);
 }
 
 .tab + .tab {
@@ -22,8 +23,6 @@
 }
 
 .tab-active {
-  border-bottom: 1px solid var(--surface);
   font-weight: bold;
-  color: var(--text);
-  margin-bottom: -1px;
+  margin-bottom: calc(0px - var(--border));
 }
